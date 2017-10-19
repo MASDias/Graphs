@@ -188,7 +188,17 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * not exist in the graph
      */
     public Iterable<V> directConnections(V vertex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!vertices.contains(vertex)) {
+            return null;
+        }
+        HashSet<V> connections = new HashSet<>();
+        int indexOf = toIndex(vertex);
+        for (int i = 0; i < numVertices; i++) {
+            if (edgeMatrix[indexOf][i] != null) {
+                connections.add(vertices.get(i));
+            }
+        }
+        return connections;
     }
 
     /**
