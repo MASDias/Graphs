@@ -1,6 +1,8 @@
 package graph;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import org.hamcrest.internal.ArrayIterator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -210,15 +212,33 @@ public class AdjacencyMatrixGraphTest {
     }
 
     @Test
-    public void testDirectConnections() {
-        fail("Not implemented yet");
+    public void testDirectConnections() {    
+    AdjacencyMatrixGraph a = new AdjacencyMatrixGraph();
+        for (int i = 1; i <= 5; i++) {
+            a.insertVertex("Vertice " + i);
+        }
+        a.insertEdge("Vertice 1", "Vertice 2", "Edge 1");
+        a.insertEdge("Vertice 1", "Vertice 4", "Edge 2");
+        a.insertEdge("Vertice 2", "Vertice 5", "Edge 3");
+        a.insertEdge("Vertice 3", "Vertice 4", "Edge 4");
+        Iterator<String> it = a.directConnections("Vertice 1").iterator();
+        assertEquals(it.next(),"Vertice 2");
+        assertEquals(it.next(),"Vertice 4");
     }
 
     @Test
     public void testOutgoingEdges() {
         AdjacencyMatrixGraph a = new AdjacencyMatrixGraph();
-        String[] s = new String[10];
-        
+        for (int i = 1; i <= 5; i++) {
+            a.insertVertex("Vertice " + i);
+        }
+        a.insertEdge("Vertice 1", "Vertice 2", "Edge 1");
+        a.insertEdge("Vertice 1", "Vertice 4", "Edge 2");
+        a.insertEdge("Vertice 2", "Vertice 5", "Edge 3");
+        a.insertEdge("Vertice 3", "Vertice 4", "Edge 4");
+        Iterator<String> it = a.outgoingEdges("Vertice 1").iterator();
+        assertEquals(it.next(),"Edge 1");
+        assertEquals(it.next(),"Edge 2");
     }
 
     @Test
@@ -583,146 +603,6 @@ public class AdjacencyMatrixGraphTest {
         instance.insertEdge("Vert 1", "Vert 5", "Edge 5");
 
         System.out.println(instance);
-    }
-
-    /**
-     * Test of privateGet method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testPrivateGet() {
-        System.out.println("privateGet");
-        int x = 0;
-        int y = 0;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        Object expResult = null;
-        Object result = instance.privateGet(x, y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of privateSet method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testPrivateSet() {
-        System.out.println("privateSet");
-        int x = 0;
-        int y = 0;
-        Object e = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        instance.privateSet(x, y, e);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toIndex method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testToIndex() {
-        System.out.println("toIndex");
-        Object vertex = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        int expResult = 0;
-        int result = instance.toIndex(vertex);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of checkVertex method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testCheckVertex() {
-        System.out.println("checkVertex");
-        Object vertex = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        boolean expResult = false;
-        boolean result = instance.checkVertex(vertex);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of insertEdge method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testInsertEdge_3args_1() {
-        System.out.println("insertEdge");
-        int indexA = 0;
-        int indexB = 0;
-        Object newEdge = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        instance.insertEdge(indexA, indexB, newEdge);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of insertEdge method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testInsertEdge_3args_2() {
-        System.out.println("insertEdge");
-        Object vertexA = null;
-        Object vertexB = null;
-        Object newEdge = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        boolean expResult = false;
-        boolean result = instance.insertEdge(vertexA, vertexB, newEdge);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeEdge method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testRemoveEdge_int_int() {
-        System.out.println("removeEdge");
-        int indexA = 0;
-        int indexB = 0;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        Object expResult = null;
-        Object result = instance.removeEdge(indexA, indexB);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeEdge method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testRemoveEdge_GenericType_GenericType() {
-        System.out.println("removeEdge");
-        Object vertexA = null;
-        Object vertexB = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        Object expResult = null;
-        Object result = instance.removeEdge(vertexA, vertexB);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of equals method, of class AdjacencyMatrixGraph.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object oth = null;
-        AdjacencyMatrixGraph instance = new AdjacencyMatrixGraph();
-        boolean expResult = false;
-        boolean result = instance.equals(oth);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }

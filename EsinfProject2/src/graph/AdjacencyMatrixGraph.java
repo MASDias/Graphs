@@ -3,7 +3,6 @@ package graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 /**
  *
@@ -191,14 +190,14 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         if (!vertices.contains(vertex)) {
             return null;
         }
-        HashSet<V> connections = new HashSet<>();
         int indexOf = toIndex(vertex);
-        for (int i = 0; i < numVertices; i++) {
+        ArrayList nearDirectedVertices = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
             if (edgeMatrix[indexOf][i] != null) {
-                connections.add(vertices.get(i));
+                nearDirectedVertices.add(vertices.get(i));
             }
         }
-        return connections;
+        return nearDirectedVertices;
     }
 
     /**
@@ -214,7 +213,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
             return null;
         }
         int indexOf = toIndex(vertex);
-        HashSet edgesGivenVertice = new HashSet<E>();
+        ArrayList<E> edgesGivenVertice = new ArrayList<>();
         for (int i = 0; i < vertices.size(); i++) {
             if (edgeMatrix[indexOf][i] != null) {
                 edgesGivenVertice.add(edgeMatrix[indexOf][i]);
@@ -293,7 +292,6 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         if (index != -1) {
             return false;
         }
-
         vertices.add(newVertex);
         numVertices++;
         resizeMatrix();
