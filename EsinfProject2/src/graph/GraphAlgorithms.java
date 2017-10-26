@@ -129,7 +129,23 @@ public class GraphAlgorithms {
      *
      */
     static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        knownVertices[sourceIdx] = true;
+        V source = graph.vertices.get(sourceIdx);
+        V dst = graph.vertices.get(destIdx);
+        auxStack.push(source);
+        for (V vAdj : graph.directConnections(source)) {
+            if(vAdj == dst){
+                auxStack.push(dst);
+                paths.add(new GraphAlgorithms().reverse(auxStack));
+                auxStack.pollLast();
+            }else{
+                if(!knownVertices[graph.toIndex(vAdj)]){
+                    allPaths(graph, source, dst, paths);
+                }
+            }
+        }
+        knownVertices[graph.toIndex(source)] = false;
+        auxStack.pollLast();
     }
 
     /**
