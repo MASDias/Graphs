@@ -141,7 +141,19 @@ public class GraphAlgorithms {
      * @return the new graph
      */
     public static <V, E> AdjacencyMatrixGraph<V, E> transitiveClosure(AdjacencyMatrixGraph<V, E> graph, E dummyEdge) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        AdjacencyMatrixGraph<V, E> clone = (AdjacencyMatrixGraph<V, E>) graph.clone();
+        for (int k = 0; k < clone.numVertices; k++) {
+            for (int i = 0; i < clone.numVertices; i++) {
+                if (i != k && clone.edgeMatrix[i][k] != null) {
+                    for (int j = 0; j < clone.numVertices; j++) {
+                        if (i != k && k != j && clone.edgeMatrix[i][k] != null) {
+                            clone.insertEdge(i, j, dummyEdge);
+                        }
+                    }
+                }
+            }
+        }
+        return clone;
     }
 
 }
