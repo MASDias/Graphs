@@ -214,11 +214,11 @@ public class GraphAlgorithmsTest {
         String dummyEdge = "pentagono";
         
         AdjacencyMatrixGraph<String, String> newMap = GraphAlgorithms.transitiveClosure(mapa, dummyEdge);
-        assertTrue("Tem que ter transitive closure na nova ligação",newMap.getEdge("A", "D").equals(dummyEdge));
-        assertTrue("Tem que ter transitive closure na nova ligação",newMap.getEdge("A", "C").equals(dummyEdge));
-        assertTrue("Tem que ter transitive closure na nova ligação",newMap.getEdge("E", "B").equals(dummyEdge));
-        assertTrue("Tem que ter transitive closure na nova ligação",newMap.getEdge("E", "C").equals(dummyEdge));
-        assertTrue("Tem que ter transitive closure na nova ligação",newMap.getEdge("D", "B").equals(dummyEdge));
+        assertTrue("Tem que ter transitive closure na nova ligação A D",newMap.getEdge("A", "D").equals(dummyEdge));
+        assertTrue("Tem que ter transitive closure na nova ligação A C",newMap.getEdge("A", "C").equals(dummyEdge));
+        assertTrue("Tem que ter transitive closure na nova ligação E B",newMap.getEdge("E", "B").equals(dummyEdge));
+        assertTrue("Tem que ter transitive closure na nova ligação E C",newMap.getEdge("E", "C").equals(dummyEdge));
+        assertTrue("Tem que ter transitive closure na nova ligação D B",newMap.getEdge("D", "B").equals(dummyEdge));
     }
 
 }
