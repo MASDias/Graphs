@@ -112,7 +112,22 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> boolean allPaths(AdjacencyMatrixGraph<V, E> graph, V source, V dest, LinkedList<LinkedList<V>> paths) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int sourceIdx = graph.toIndex(source);
+        if (sourceIdx == -1) {
+            return false;
+        }
+
+        int destIdx = graph.toIndex(dest);
+        if (destIdx == -1) {
+            return false;
+        }
+
+        paths.clear();
+        LinkedList<V> auxStack = new LinkedList<V>();
+
+        boolean[] knownVertices = new boolean[graph.numVertices];
+        allPaths(graph, sourceIdx, destIdx, knownVertices, auxStack, paths);
+        return true;
     }
 
     /**
@@ -130,22 +145,20 @@ public class GraphAlgorithms {
      */
     static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
         knownVertices[sourceIdx] = true;
-        V source = graph.vertices.get(sourceIdx);
-        V dst = graph.vertices.get(destIdx);
-        auxStack.push(source);
-        for (V vAdj : graph.directConnections(source)) {
-            if(vAdj == dst){
-                auxStack.push(dst);
-                paths.add(new GraphAlgorithms().reverse(auxStack));
-                auxStack.pollLast();
-            }else{
-                if(!knownVertices[graph.toIndex(vAdj)]){
-                    allPaths(graph, source, dst, paths);
+        auxStack.push(graph.vertices.get(sourceIdx));
+        for (int i = 0; i < graph.numVertices; i++) {
+            if (graph.edgeMatrix[sourceIdx][i] != null) {
+                if (i == destIdx) {
+                    auxStack.push(graph.vertices.get(i));
+                    paths.add(reverse(auxStack));  // order will be correct
+                    auxStack.pop();
+                } else if (knownVertices[i] == false) {
+                    allPaths(graph, i, destIdx, knownVertices, auxStack, paths);
                 }
             }
         }
-        knownVertices[graph.toIndex(source)] = false;
-        auxStack.pollLast();
+        knownVertices[sourceIdx] = false;
+        auxStack.pop();
     }
 
     /**
