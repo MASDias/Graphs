@@ -20,7 +20,28 @@ public class EdgeAsDoubleGraphAlgorithms {
      *
      */
     private static <V> void shortestPath(AdjacencyMatrixGraph<V, Double> graph, int sourceIdx, boolean[] knownVertices, int[] verticesIndex, double[] minDist) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        minDist[sourceIdx] = 0;
+        while (sourceIdx != -1) {
+            knownVertices[sourceIdx] = true;
+
+            for (int i = 0; i < graph.numVertices; i++) {
+                if (graph.privateGet(sourceIdx, i) != null) {
+                    if (!knownVertices[i] && minDist[i] > minDist[sourceIdx] + graph.privateGet(sourceIdx, i)) {
+                        minDist[i] = minDist[sourceIdx] + graph.privateGet(sourceIdx, i);
+                        verticesIndex[i] = sourceIdx;
+                    }
+                }
+            }
+
+            Double min = Double.MAX_VALUE;
+            sourceIdx = -1;
+            for (int i = 0; i < graph.numVertices; i++) {
+                if (!knownVertices[i] && minDist[i] < min) {
+                    min = minDist[i];
+                    sourceIdx = i;
+                }
+            }
+        }
     }
 
     /**
@@ -35,36 +56,47 @@ public class EdgeAsDoubleGraphAlgorithms {
      *
      */
     public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
-        if (!graph.checkVertex(source)) {
+        int sourceIdx = graph.toIndex(source);
+        if (sourceIdx == -1) {
             return -1;
         }
-        if (!graph.checkVertex(dest)) {
+
+        int destIdx = graph.toIndex(dest);
+        if (destIdx == -1) {
             return -1;
         }
+
         path.clear();
-        int sourceIndex = graph.toIndex(source);
-        int destIndex = graph.toIndex(dest);
-        
-        double[] minDist = new double[graph.numVertices];
-        int[] verticeIndex = new int[graph.numVertices];
+
         boolean[] knownVertices = new boolean[graph.numVertices];
-        
-        LinkedList<V> queueAux = new LinkedList<>();
-        
+        int[] verticesIndex = new int[graph.numVertices];
+        double[] minDist = new double[graph.numVertices];
+
         for (int i = 0; i < graph.numVertices; i++) {
             minDist[i] = Double.MAX_VALUE;
-            verticeIndex[i] = -1;
+            verticesIndex[i] = -1;
         }
-        
-        shortestPath(graph, sourceIndex, knownVertices, verticeIndex, minDist);
-        
-        if (!knownVertices[destIndex]) {
+
+        shortestPath(graph, sourceIdx, knownVertices, verticesIndex, minDist);
+
+        if (knownVertices[destIdx] == false) {
             return -1;
         }
-        
-        recreatePath(graph, sourceIndex, destIndex, verticeIndex, path);
-        
-        
+
+        recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);
+
+		// recreatePath builds path in reverse order, so reverse
+        LinkedList<V> stack = new LinkedList<V>();  //create a stack
+
+        while (!path.isEmpty()) {
+            stack.push(path.remove());
+        }
+
+        while (!stack.isEmpty()) {
+            path.add(stack.pop());
+        }
+
+        return minDist[destIdx];
     }
 
     /**
