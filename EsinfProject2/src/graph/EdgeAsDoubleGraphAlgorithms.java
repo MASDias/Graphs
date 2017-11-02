@@ -85,7 +85,7 @@ public class EdgeAsDoubleGraphAlgorithms {
 
         recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);
 
-		// recreatePath builds path in reverse order, so reverse
+        // recreatePath builds path in reverse order, so reverse
         LinkedList<V> stack = new LinkedList<V>();  //create a stack
 
         while (!path.isEmpty()) {
@@ -126,7 +126,23 @@ public class EdgeAsDoubleGraphAlgorithms {
      * @return the new graph
      */
     public static <V> AdjacencyMatrixGraph<V, Double> minDistGraph(AdjacencyMatrixGraph<V, Double> graph) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        AdjacencyMatrixGraph<V, Double> newGraph = (AdjacencyMatrixGraph<V, Double>) graph.clone();
+        for (int k = 0; k < newGraph.numVertices; k++) {
+            for (int i = 0; i < newGraph.numVertices; i++) {
+                if (i != k && newGraph.privateGet(i, k) != null) {
+                    for (int j = 0; j < newGraph.numVertices; j++) {
+                        if (i != j && j != k && newGraph.privateGet(k, j) != null) {
+                            if (newGraph.privateGet(i, j) == null) {
+                                newGraph.insertEdge(i, j, newGraph.privateGet(i, k) + newGraph.privateGet(k, j));
+                            } else if (newGraph.privateGet(i, j) > newGraph.privateGet(i, k) + newGraph.privateGet(k, j)) {
+                                newGraph.privateSet(i, j, newGraph.privateGet(i, k) + newGraph.privateGet(k, j));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return newGraph;
     }
 
 }
