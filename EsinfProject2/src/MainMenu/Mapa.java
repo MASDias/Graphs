@@ -1,5 +1,6 @@
 package MainMenu;
 
+import Entidades.Estrada;
 import Entidades.Local;
 import graph.AdjacencyMatrixGraph;
 
@@ -13,7 +14,7 @@ public class Mapa {
 
     }
 
-    public void adicionarLigacaoLocais(AdjacencyMatrixGraph<Local, Double> gameMap) {
+    public void adicionarLigacaoLocais(AdjacencyMatrixGraph<Local, Estrada> gameMap) {
         
     }
 

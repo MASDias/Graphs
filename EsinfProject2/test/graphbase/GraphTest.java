@@ -144,7 +144,6 @@ public class GraphTest {
     @Test
     public void testGetEdge() {
         System.out.println("Test getEdge");
-		        
         instance.insertEdge("A","B","Edge1",6);
         instance.insertEdge("A","C","Edge2",1);
         instance.insertEdge("B","D","Edge3",3);

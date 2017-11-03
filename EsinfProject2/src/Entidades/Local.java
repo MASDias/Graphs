@@ -4,14 +4,18 @@ import java.util.Objects;
 
 public class Local {
 
-    String nome;
-    int dificuldade;
-    Personagem dono;
+    private String nome;
+    private int dificuldade;
+    private Personagem dono;
 
     public Local(String nome, int dificuldade) {
         this.nome = nome;
         this.dificuldade = dificuldade;
         this.dono = null;
+    }
+
+    public void setDono(Personagem dono) {
+        this.dono = dono;
     }
 
     @Override
