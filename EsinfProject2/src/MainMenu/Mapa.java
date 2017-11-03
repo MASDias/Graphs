@@ -13,7 +13,7 @@ public class Mapa {
 
     }
 
-    public void adicionarLigacaoLocais(AdjacencyMatrixGraph<Local, Local> gameMap) {
+    public void adicionarLigacaoLocais(AdjacencyMatrixGraph<Local, Double> gameMap) {
         
     }
 

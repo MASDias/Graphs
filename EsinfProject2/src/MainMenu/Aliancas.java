@@ -13,7 +13,7 @@ public class Aliancas {
 
     }
 
-    public void formarAlianca(AdjacencyMatrixGraph<Personagem, Personagem> alianca) {
+    public void formarAlianca(AdjacencyMatrixGraph<Personagem, Integer> alianca) {
         
     }
 }

@@ -6,8 +6,8 @@ import graph.AdjacencyMatrixGraph;
 
 public class MenuPrincipal {
 
-    AdjacencyMatrixGraph<Local, Local> gameMap;
-    AdjacencyMatrixGraph<Personagem, Personagem> aliancas;
+    AdjacencyMatrixGraph<Local, Double> gameMap;
+    AdjacencyMatrixGraph<Personagem, Integer> aliancas;
     Mapa mapa;
     Aliancas alianca;
 

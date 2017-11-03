@@ -1,8 +1,6 @@
 package graph;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import org.hamcrest.internal.ArrayIterator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
