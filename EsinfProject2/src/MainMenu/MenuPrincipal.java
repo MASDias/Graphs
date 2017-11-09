@@ -1,16 +1,18 @@
 package MainMenu;
 
+import Entidades.Alianca;
 import Entidades.Estrada;
 import Entidades.Local;
 import Entidades.Personagem;
+import File.LeituraFicheiro;
 import graph.AdjacencyMatrixGraph;
 
 public class MenuPrincipal {
 
-    AdjacencyMatrixGraph<Local, Estrada> gameMap;
-    AdjacencyMatrixGraph<Personagem, Integer> aliancas;
-    Mapa mapa;
-    Aliancas alianca;
+    private AdjacencyMatrixGraph<Local, Estrada> gameMap;
+    private AdjacencyMatrixGraph<Personagem, Alianca> aliancas;
+    private Mapa mapa;
+    private Aliancas alianca;
 
     public MenuPrincipal() {
         this.gameMap = new AdjacencyMatrixGraph<>();
@@ -19,8 +21,17 @@ public class MenuPrincipal {
         this.alianca = new Aliancas();
         loadGameInfo();
     }
-    
+
+    public AdjacencyMatrixGraph<Local, Estrada> getGameMap() {
+        return gameMap;
+    }
+
+    public AdjacencyMatrixGraph<Personagem, Alianca> getAliancas() {
+        return aliancas;
+    }
+
     public void loadGameInfo() {
+        LeituraFicheiro ficheiro = new LeituraFicheiro();
         construcaoMapa();
         construcaoAliancas();
     }

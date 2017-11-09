@@ -18,6 +18,10 @@ public class Local {
         this.dono = dono;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     @Override
     public String toString() {
         return nome + " " + dificuldade + " " + String.format("%s", dono != null ? dono : "");

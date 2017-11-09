@@ -66,7 +66,6 @@ public class GraphAlgorithms {
    * @return qdfs a queue with the vertices of depth-first search 
    */
     public static<V,E> LinkedList<V> DepthFirstSearch(Graph<V,E> g, V vert){
-    
         throw new UnsupportedOperationException("Not supported yet.");
     }
    
@@ -81,7 +80,6 @@ public class GraphAlgorithms {
    */
     private static<V,E> void allPaths(Graph<V,E> g, V vOrig, V vDest, boolean[] visited, 
                                            LinkedList<V> path, ArrayList<LinkedList<V>> paths){
-  
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

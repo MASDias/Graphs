@@ -1,5 +1,6 @@
 package MainMenu;
 
+import Entidades.Alianca;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
 
@@ -13,7 +14,7 @@ public class Aliancas {
 
     }
 
-    public void formarAlianca(AdjacencyMatrixGraph<Personagem, Integer> alianca) {
+    public void formarAlianca(AdjacencyMatrixGraph<Personagem, Alianca> alianca) {
         
     }
 }

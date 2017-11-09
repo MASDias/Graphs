@@ -5,7 +5,9 @@
  */
 package FIle;
 
-import File.FileReader;
+import Entidades.Personagem;
+import File.LeituraFicheiro;
+import MainMenu.MenuPrincipal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +20,8 @@ import static org.junit.Assert.*;
  * @author MarioDias
  */
 public class FileReaderTest {
+    
+    private MenuPrincipal menuPrincipal = new MenuPrincipal();
     
     public FileReaderTest() {
     }
@@ -39,17 +43,19 @@ public class FileReaderTest {
     }
 
     /**
-     * Test of populateGame method, of class FileReader.
+     * Test of populateGame method, of class LeituraFicheiro.
      */
     @Test
     public void testPopulateGame() {
         System.out.println("Leitura  para popular e adicionar locais para o jogo");
         String nomeLocais = "locais_S.txt";
         String nomePersonagens = "pers_S.txt";
-        FileReader instance = new FileReader();
-        instance.populateGame(nomeLocais, nomePersonagens);
+        LeituraFicheiro instance = new LeituraFicheiro();
         
-        fail("The test case is a prototype.");
+        instance.populateGame(nomeLocais, nomePersonagens, menuPrincipal);
+        for (Personagem vertice : menuPrincipal.getAliancas().vertices()) {
+            System.out.println(vertice);
+        }
     }
     
 }

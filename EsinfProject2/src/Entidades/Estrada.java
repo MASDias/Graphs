@@ -4,34 +4,25 @@ import java.util.Objects;
 
 public class Estrada {
 
-    private String nome;
-    private double dificuldade;
+    private float dificuldade;
 
-    public Estrada(String nome, double dificuldade) {
-        this.nome = nome;
+    public Estrada(float dificuldade) {
         this.dificuldade = dificuldade;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public double getDificuldade() {
+    public float getDificuldade() {
         return dificuldade;
     }
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return new Estrada(nome, dificuldade);
+        return new Estrada(dificuldade);
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.nome);
-        hash = 83 * hash + (int) (Double.doubleToLongBits(this.dificuldade) ^ (Double.doubleToLongBits(this.dificuldade) >>> 32));
+        hash = 71 * hash + Float.floatToIntBits(this.dificuldade);
         return hash;
     }
 
@@ -47,13 +38,10 @@ public class Estrada {
             return false;
         }
         final Estrada other = (Estrada) obj;
-        if (Double.doubleToLongBits(this.dificuldade) != Double.doubleToLongBits(other.dificuldade)) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (Float.floatToIntBits(this.dificuldade) != Float.floatToIntBits(other.dificuldade)) {
             return false;
         }
         return true;
-    }
+    }    
 
 }

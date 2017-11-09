@@ -12,6 +12,10 @@ public class Personagem {
         this.forca = forca;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     @Override
     public String toString() {
         return nome + " " + forca;
