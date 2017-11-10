@@ -16,6 +16,13 @@ public class Alianca implements Cloneable {
     }
 
     @Override
+    public String toString() {
+        return publica + " " + compatibilade;
+    }
+
+    
+    
+    @Override
     protected Object clone() throws CloneNotSupportedException {
         return new Alianca(publica, compatibilade);
     }

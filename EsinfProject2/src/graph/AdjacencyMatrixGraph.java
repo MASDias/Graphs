@@ -330,9 +330,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         if (edgeMatrix[indexA][indexB] != null) {
             return false;
         }
-
         insertEdge(indexA, indexB, newEdge);
-
         return true;
     }
 

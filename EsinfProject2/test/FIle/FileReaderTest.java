@@ -5,15 +5,15 @@
  */
 package FIle;
 
+import Entidades.Alianca;
 import Entidades.Personagem;
-import File.LeituraFicheiro;
+import Ficheiro.LeituraFicheiro;
 import MainMenu.MenuPrincipal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -36,6 +36,10 @@ public class FileReaderTest {
     
     @Before
     public void setUp() {
+        String nomeLocais = "locais_S.txt";
+        String nomePersonagens = "pers_S.txt";
+        LeituraFicheiro instance = new LeituraFicheiro();
+        instance.populateGame(nomeLocais, nomePersonagens, menuPrincipal);
     }
     
     @After
@@ -48,13 +52,8 @@ public class FileReaderTest {
     @Test
     public void testPopulateGame() {
         System.out.println("Leitura  para popular e adicionar locais para o jogo");
-        String nomeLocais = "locais_S.txt";
-        String nomePersonagens = "pers_S.txt";
-        LeituraFicheiro instance = new LeituraFicheiro();
-        
-        instance.populateGame(nomeLocais, nomePersonagens, menuPrincipal);
-        for (Personagem vertice : menuPrincipal.getAliancas().vertices()) {
-            System.out.println(vertice);
+        for (Alianca a : menuPrincipal.getAliancas().edges()) {
+            System.out.println(a);
         }
     }
     
