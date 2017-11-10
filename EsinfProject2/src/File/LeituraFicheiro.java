@@ -1,7 +1,6 @@
 package File;
 
 import Entidades.Alianca;
-import Entidades.Estrada;
 import Entidades.Local;
 import Entidades.Personagem;
 import MainMenu.MenuPrincipal;
@@ -119,8 +118,8 @@ public class LeituraFicheiro {
                         break;
                     }
                 }
-                float dificuldade = Float.parseFloat(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
-                menu.getGameMap().insertEdge(a, b, new Estrada(dificuldade));
+                double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
+                menu.getGameMap().insertEdge(a, b, dificuldade);
             }
         }
     }

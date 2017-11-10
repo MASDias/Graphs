@@ -1,21 +1,22 @@
 package MainMenu;
 
-import Entidades.Estrada;
 import Entidades.Local;
 import graph.AdjacencyMatrixGraph;
+import static graph.EdgeAsDoubleGraphAlgorithms.shortestPath;
+import java.util.LinkedList;
 
 public class Mapa {
+        AdjacencyMatrixGraph<Local, Double> map;
 
-    public Mapa() {
-
+    public Mapa(MenuPrincipal menu) {
+        map = menu.getGameMap();
     }
-
-    public void adicionarLocal(Local local) {
-
+    
+    public LinkedList caminhoMaisFacil(Local l1, Local l2){
+        LinkedList<Local> path = new LinkedList<>();
+        shortestPath(map, l1, l2, path);
+        return path;
     }
-
-    public void adicionarLigacaoLocais(AdjacencyMatrixGraph<Local, Estrada> gameMap) {
-        
-    }
+    
 
 }
