@@ -6,7 +6,7 @@
 package MainMenu;
 
 import Entidades.Local;
-import File.LeituraFicheiro;
+import Ficheiro.LeituraFicheiro;
 import java.util.LinkedList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,16 +52,15 @@ public class MapaTest {
     @Test
     public void testCaminhoMaisFacil() {
         System.out.println("caminhoMaisFacil");
-        Local l1 =  new Local("Local25", 32);
+        Local l1 = new Local("Local25", 32);
         Local l2 = new Local("Local29", 20);
         Local l3 = new Local("Local30", 31);
-        
         LinkedList<Local> expResult = new LinkedList<>();
         expResult.add(l1);
         expResult.add(l2);
         expResult.add(l3);
         
-        LinkedList result = menuPrincipal.caminhoMaisProximo(l1, l3);
+        LinkedList<Local> result = menuPrincipal.caminhoMaisProximo(l1, l3);
         assertEquals(expResult, result);
     }
     

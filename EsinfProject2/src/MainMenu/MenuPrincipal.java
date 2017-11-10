@@ -3,7 +3,7 @@ package MainMenu;
 import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
-import File.LeituraFicheiro;
+import Ficheiro.LeituraFicheiro;
 import graph.AdjacencyMatrixGraph;
 import java.util.LinkedList;
 
@@ -17,7 +17,7 @@ public class MenuPrincipal {
     public MenuPrincipal() {
         this.gameMap = new AdjacencyMatrixGraph<>();
         this.aliancas = new AdjacencyMatrixGraph<>();
-        this.mapa = new Mapa(this);
+        this.mapa = new Mapa(gameMap);
         this.alianca = new Aliancas();
         loadGameInfo();
     }

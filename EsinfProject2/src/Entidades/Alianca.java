@@ -3,16 +3,16 @@ package Entidades;
 public class Alianca implements Cloneable {
 
     private boolean publica;
-    private float compatibilade;
+    private double compatibilade;
 
-    public Alianca(boolean publica, float compatibilade) {
+    public Alianca(boolean publica, double compatibilade) {
         this.publica = publica;
         this.compatibilade = compatibilade;
     }
 
     public Alianca(boolean publica) {
         this.publica = publica;
-        this.compatibilade = (float) Math.random();
+        this.compatibilade = (double) Math.random();
     }
 
     @Override
@@ -50,10 +50,12 @@ public class Alianca implements Cloneable {
         if (this.publica != other.publica) {
             return false;
         }
-        if (Float.floatToIntBits(this.compatibilade) != Float.floatToIntBits(other.compatibilade)) {
+        if (Double.doubleToLongBits(this.compatibilade) != Double.doubleToLongBits(other.compatibilade)) {
             return false;
         }
         return true;
     }
+
+    
 
 }

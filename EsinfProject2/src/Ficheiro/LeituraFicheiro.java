@@ -81,7 +81,8 @@ public class LeituraFicheiro {
                 a = getPersonagem(nome_a, menu);
                 b = getPersonagem(nome_b, menu);
                 boolean publica = Boolean.parseBoolean(linha.split(SPLIT)[TIPO_ALIANCA]);
-                menu.getAliancas().insertEdge(a, b, new Alianca(publica));
+                double c = Double.parseDouble(linha.split(SPLIT)[COMPATIBILIDADE_LEITURA]);
+                menu.getAliancas().insertEdge(a, b, new Alianca(publica,c));
             }
         }
     }
@@ -102,6 +103,7 @@ public class LeituraFicheiro {
                     Local a = getLocal(localA, menu);
                     Local b = getLocal(localB, menu);
                     double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
+                    System.out.println(dificuldade);
                     menu.getGameMap().insertEdge(a, b, dificuldade);
                 }
             } else {
@@ -111,7 +113,7 @@ public class LeituraFicheiro {
                     int dificuldade = Integer.parseInt(linha.split(SPLIT)[DIFICULDADE]);
                     Local l = new Local(nome, dificuldade);
 
-                    if (linha.split(SPLIT).length == LOCAL_LEITURA) {
+                    if (linha.split(SPLIT).length == LOCAL_LIGACAO_LEITURA) {
                         nomeDono = linha.split(SPLIT)[DONO];
                     }
                     l.setDono(getPersonagem(nomeDono, menu));

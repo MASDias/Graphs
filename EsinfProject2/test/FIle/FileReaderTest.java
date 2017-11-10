@@ -6,7 +6,6 @@
 package FIle;
 
 import Entidades.Alianca;
-import Entidades.Personagem;
 import Ficheiro.LeituraFicheiro;
 import MainMenu.MenuPrincipal;
 import org.junit.After;
@@ -52,7 +51,7 @@ public class FileReaderTest {
     @Test
     public void testPopulateGame() {
         System.out.println("Leitura  para popular e adicionar locais para o jogo");
-        for (Alianca a : menuPrincipal.getAliancas().edges()) {
+        for (Double a : menuPrincipal.getGameMap().edges()) {
             System.out.println(a);
         }
     }
