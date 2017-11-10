@@ -5,6 +5,7 @@ import Entidades.Local;
 import Entidades.Personagem;
 import File.LeituraFicheiro;
 import graph.AdjacencyMatrixGraph;
+import java.util.LinkedList;
 
 public class MenuPrincipal {
 
@@ -38,4 +39,7 @@ public class MenuPrincipal {
         alianca.formarAlianca(aliancas);
     }
 
+    public LinkedList caminhoMaisProximo(Local l1, Local l2){
+        return mapa.caminhoMaisFacil(l1, l2);
+    }
 }
