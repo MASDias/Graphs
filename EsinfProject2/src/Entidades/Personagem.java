@@ -16,6 +16,10 @@ public class Personagem {
         return nome;
     }
 
+    public int getForca() {
+        return forca;
+    }
+
     @Override
     public String toString() {
         return nome + " " + forca;

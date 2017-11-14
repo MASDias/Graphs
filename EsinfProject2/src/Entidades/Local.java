@@ -8,10 +8,23 @@ public class Local {
     private int dificuldade;
     private Personagem dono;
 
+    public Local(String nome, int dificuldade,Personagem dono) {
+        this.nome = nome;
+        this.dificuldade = dificuldade;
+        this.dono = dono;
+    }
+
     public Local(String nome, int dificuldade) {
         this.nome = nome;
         this.dificuldade = dificuldade;
-        this.dono = null;
+    }
+
+    public int getDificuldade() {
+        return dificuldade;
+    }
+
+    public Personagem getDono() {
+        return dono;
     }
 
     public void setDono(Personagem dono) {

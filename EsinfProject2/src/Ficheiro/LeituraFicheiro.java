@@ -60,8 +60,8 @@ public class LeituraFicheiro {
     }
 
     public void populateGame(String nomeLocais, String nomePersonagens, MenuPrincipal menu) {
-        lerLocais(nomeLocais, menu);
         lerPersonagens(nomePersonagens, menu);
+        lerLocais(nomeLocais, menu);
     }
 
     private void lerPersonagens(String nomeFicheiro, MenuPrincipal menu) {
@@ -82,7 +82,7 @@ public class LeituraFicheiro {
                 b = getPersonagem(nome_b, menu);
                 boolean publica = Boolean.parseBoolean(linha.split(SPLIT)[TIPO_ALIANCA]);
                 double c = Double.parseDouble(linha.split(SPLIT)[COMPATIBILIDADE_LEITURA]);
-                menu.getAliancas().insertEdge(a, b, new Alianca(publica,c));
+                menu.getAliancas().insertEdge(a, b, new Alianca(publica, c));
             }
         }
     }
@@ -103,20 +103,21 @@ public class LeituraFicheiro {
                     Local a = getLocal(localA, menu);
                     Local b = getLocal(localB, menu);
                     double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
-                    System.out.println(dificuldade);
                     menu.getGameMap().insertEdge(a, b, dificuldade);
                 }
             } else {
                 if (linha.split(SPLIT).length > 1) {
                     String nomeDono = "";
+
                     String nome = linha.split(SPLIT)[LOCAL];
+                    Personagem dono = null;
                     int dificuldade = Integer.parseInt(linha.split(SPLIT)[DIFICULDADE]);
-                    Local l = new Local(nome, dificuldade);
 
                     if (linha.split(SPLIT).length == LOCAL_LIGACAO_LEITURA) {
                         nomeDono = linha.split(SPLIT)[DONO];
+                        dono = getPersonagem(nomeDono, menu);
                     }
-                    l.setDono(getPersonagem(nomeDono, menu));
+                    Local l = new Local(nome, dificuldade, dono);
                     menu.getGameMap().insertVertex(l);
                 }
             }

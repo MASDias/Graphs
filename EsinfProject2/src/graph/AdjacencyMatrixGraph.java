@@ -82,7 +82,6 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
     @SuppressWarnings("unchecked")
     public AdjacencyMatrixGraph(int initialSize) {
         vertices = new ArrayList<V>(initialSize);
-
         edgeMatrix = (E[][]) new Object[initialSize][initialSize];
     }
 
@@ -222,6 +221,15 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
         return edgesGivenVertice;
     }
 
+    
+    public V getVertex(V vertex){
+        for (V vertice : vertices) {
+            if (vertice.equals(vertex)) {
+                return vertice;
+            }
+        }
+        return null;
+    }
     /**
      * Returns an iterable collection of edges for which vertex v is the
      * destination. This is the same result as returned by incomingEdges.

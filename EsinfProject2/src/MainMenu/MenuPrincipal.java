@@ -3,9 +3,9 @@ package MainMenu;
 import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
-import Ficheiro.LeituraFicheiro;
 import graph.AdjacencyMatrixGraph;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class MenuPrincipal {
 
@@ -18,8 +18,8 @@ public class MenuPrincipal {
         this.gameMap = new AdjacencyMatrixGraph<>();
         this.aliancas = new AdjacencyMatrixGraph<>();
         this.mapa = new Mapa(gameMap);
-        this.alianca = new Aliancas();
-        loadGameInfo();
+        this.alianca = new Aliancas(aliancas);
+
     }
 
     public AdjacencyMatrixGraph<Local, Double> getGameMap() {
@@ -30,16 +30,14 @@ public class MenuPrincipal {
         return aliancas;
     }
 
-    public void loadGameInfo() {
-        LeituraFicheiro ficheiro = new LeituraFicheiro();
-        construcaoAliancas();
+    public  Map<LinkedList<Local>, Double> locaisPersonagemPodeConsquistar(Personagem p, Local l) {
+        if (!gameMap.checkVertex(l) || !aliancas.checkVertex(p)) {
+            return null;
+        }
+        return alianca.conquistarLocais(p, l, gameMap);
     }
 
-    private void construcaoAliancas() {
-        alianca.formarAlianca(aliancas);
-    }
-
-    public LinkedList caminhoMaisProximo(Local l1, Local l2){
+    public LinkedList caminhoMaisProximo(Local l1, Local l2) {
         return mapa.caminhoMaisFacil(l1, l2);
     }
 }
