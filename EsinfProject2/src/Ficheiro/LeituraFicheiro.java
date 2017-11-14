@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class LeituraFicheiro {
 
 //Constante para leitura de locais
-    private final int LOCAL_LEITURA = 3;
     private final int LOCAL_LIGACAO_LEITURA = 3;
 
 //Constante para leitura de personagens

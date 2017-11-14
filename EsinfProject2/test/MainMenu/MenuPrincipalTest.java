@@ -112,4 +112,53 @@ public class MenuPrincipalTest {
 
     }
 
+    /**
+     * Test of aliadosDePersonagem method, of class MenuPrincipal.
+     */
+    @Test
+    public void testAliadosDePersonagem() {
+        System.out.println("aliadosDePersonagem");
+        Personagem p = new Personagem("Pers0", 47);
+        LinkedList<Personagem> expResult = null;
+        LinkedList<Personagem> result = menuPrincipal.aliadosDePersonagem(p);
+        System.out.println(result);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of novaAlianca method, of class MenuPrincipal.
+     */
+    @Test
+    public void testNovaAlianca() {
+        
+        boolean result = menuPrincipal.novaAlianca(new Personagem("Teste", 12), new Personagem("Pers0", 47), true, 0.12);
+        assertFalse("Nao existe Personanm, tem que ser falso", result); 
+        result = menuPrincipal.novaAlianca(new Personagem("Pers0", 47), new Personagem("Pers0", 47), true, 0.12);
+        assertFalse("Mesma personagem, tem que ser resultado falso", result); 
+        
+        result = menuPrincipal.novaAlianca(new Personagem("Pers8", 46), new Personagem("Pers0", 47), true, 1.1);
+        assertFalse("Compatibilidade acima de 1, resulta tem que ser false", result);
+        result = menuPrincipal.novaAlianca(new Personagem("Pers8", 46), new Personagem("Pers0", 47), true, -1);
+        assertFalse("Compatibilidade abaixo de 0, resulta tem que ser false", result);
+        
+        System.out.println("Nova Alianca entre [A  B] e [C  D]");
+        Personagem A = new Personagem("Pers0", 47);
+        Personagem B = new Personagem("Pers7", 59);
+        boolean Relacao = true;
+        double compatibilidade = 0.45;
+        boolean expResult = false;
+        result = menuPrincipal.novaAlianca(A, B, Relacao, compatibilidade);
+        assertEquals("Alianca ja existe entre A e B tem que ser false", expResult, result);
+        Personagem C = new Personagem("Pers0", 47);
+        Personagem D = new Personagem("Pers8", 46);
+        Relacao = true;
+        compatibilidade = 0.60;
+        expResult = true;
+        result = menuPrincipal.novaAlianca(C, D, Relacao, compatibilidade);
+        assertEquals("Tem que ser criada nova  alianca entre C e D, ainda nao existe alianca feita", expResult, result);
+       
+    }
+
 }
