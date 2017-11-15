@@ -12,6 +12,7 @@ import java.util.Map;
 public class Aliancas {
 
     private AdjacencyMatrixGraph<Personagem, Alianca> aliancas;
+    private AdjacencyMatrixGraph<Personagem, Alianca> aliancasPossiveis;
 
     public Aliancas(AdjacencyMatrixGraph<Personagem, Alianca> aliancas) {
         this.aliancas = aliancas;
@@ -100,5 +101,19 @@ public class Aliancas {
         }
         mapaPersonagensForca.put(personagens, maisForte);
         return mapaPersonagensForca;
+    }
+    
+    public void aliancasPossiveis(){
+        for (Personagem p : aliancas.vertices()) {
+            aliancasPossiveis.insertVertex(p);
+        }
+        
+        for (Personagem p  : aliancas.vertices()) {
+            for (Personagem p2 : aliancas.directConnections(p)) {
+                if(aliancas.getEdge(p, p2) == null){
+                    aliancasPossiveis.insertEdge(p, p2, new Alianca(true));
+                }
+            }
+        }
     }
 }
