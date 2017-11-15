@@ -5,16 +5,16 @@ import Entidades.Local;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
 import static graph.EdgeAsDoubleGraphAlgorithms.shortestPath;
+import graphbase.Graph;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class Aliancas {
 
-    private AdjacencyMatrixGraph<Personagem, Alianca> aliancas;
-    private AdjacencyMatrixGraph<Personagem, Alianca> aliancasPossiveis;
+    private Graph<Personagem, Boolean> aliancas;
 
-    public Aliancas(AdjacencyMatrixGraph<Personagem, Alianca> aliancas) {
+    public Aliancas(Graph<Personagem, Boolean> aliancas) {
         this.aliancas = aliancas;
     }
 
@@ -57,15 +57,15 @@ public class Aliancas {
 
     public LinkedList<Personagem> aliadosDePersonagem(Personagem p) {
         LinkedList<Personagem> listaAliados = new LinkedList<>();
-        for (Personagem personagem : aliancas.directConnections(p)) {
+        for (Personagem personagem : aliancas.adjVertices(p)) {
             listaAliados.add(personagem);
         }
         return listaAliados;
     }
 
     public boolean novaAlianca(Personagem a, Personagem b, boolean relacao, double compatibilidade) {
-        if (aliancas.getEdge(a, b)==null && !a.equals(b)) {
-            aliancas.insertEdge(a, b, new Alianca(relacao, compatibilidade));
+        if (aliancas.getEdge(a, b) == null && !a.equals(b)) {
+            aliancas.insertEdge(a, b, relacao, compatibilidade);
             return true;
         }
         return false;
@@ -79,18 +79,18 @@ public class Aliancas {
         }
         return null;
     }
-    
-    public Map<LinkedList<Personagem>, Double> aliancaMaisForte(){
-        
+
+    public Map<LinkedList<Personagem>, Double> aliancaMaisForte() {
+
         Map<LinkedList<Personagem>, Double> mapaPersonagensForca = new HashMap<>();
         LinkedList<Personagem> personagens = new LinkedList<>();
         double forca = 0;
         double maisForte = 0;
         for (Personagem p : aliancas.vertices()) {
-            for (Personagem p2 : aliancas.directConnections(p)) {
-                if(aliancas.getEdge(p, p2) != null){
-                    forca = (p.getForca() + p2.getForca()) * aliancas.getEdge(p, p2).getCompatibilade();
-                    if(forca>maisForte){
+            for (Personagem p2 : aliancas.adjVertices(p)) {
+                if (aliancas.getEdge(p, p2) != null) {
+//                    forca = (p.getForca() + p2.getForca()) * aliancas.getEdge(p, p2);
+                    if (forca > maisForte) {
                         maisForte = forca;
                         personagens.clear();
                         personagens.add(p);
@@ -102,18 +102,18 @@ public class Aliancas {
         mapaPersonagensForca.put(personagens, maisForte);
         return mapaPersonagensForca;
     }
-    
-    public void aliancasPossiveis(){
-        for (Personagem p : aliancas.vertices()) {
-            aliancasPossiveis.insertVertex(p);
-        }
-        
-        for (Personagem p  : aliancas.vertices()) {
-            for (Personagem p2 : aliancas.directConnections(p)) {
-                if(aliancas.getEdge(p, p2) == null){
-                    aliancasPossiveis.insertEdge(p, p2, new Alianca(true));
-                }
-            }
-        }
-    }
+
+//    public void aliancasPossiveis() {
+//        for (Personagem p : aliancas.vertices()) {
+//            aliancasPossiveis.insertVertex(p);
+//        }
+//
+//        for (Personagem p : aliancas.vertices()) {
+//            for (Personagem p2 : aliancas.directConnections(p)) {
+//                if (aliancas.getEdge(p, p2) == null) {
+//                    aliancasPossiveis.insertEdge(p, p2, new Alianca(true));
+//                }
+//            }
+//        }
+//    }
 }

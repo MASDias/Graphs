@@ -4,19 +4,20 @@ import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
+import graphbase.Graph;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class MenuPrincipal {
 
     private AdjacencyMatrixGraph<Local, Double> gameMap;
-    private AdjacencyMatrixGraph<Personagem, Alianca> aliancas;
+    private  Graph<Personagem, Boolean> aliancas;
     private Mapa mapa;
     private Aliancas alianca;
 
     public MenuPrincipal() {
         this.gameMap = new AdjacencyMatrixGraph<>();
-        this.aliancas = new AdjacencyMatrixGraph<>();
+        this.aliancas = new Graph<>(false);
         this.mapa = new Mapa(gameMap);
         this.alianca = new Aliancas(aliancas);
 
@@ -26,12 +27,12 @@ public class MenuPrincipal {
         return gameMap;
     }
 
-    public AdjacencyMatrixGraph<Personagem, Alianca> getAliancas() {
+    public  Graph<Personagem, Boolean> getAliancas() {
         return aliancas;
     }
 
     public Map<LinkedList<Local>, Double> locaisPersonagemPodeConsquistar(Personagem p, Local l) {
-        if (!gameMap.checkVertex(l) || !aliancas.checkVertex(p)) {
+        if (!gameMap.checkVertex(l) || !aliancas.validVertex(p)) {
             return null;
         }
         return alianca.conquistarLocais(p, l, gameMap);
@@ -45,14 +46,14 @@ public class MenuPrincipal {
     }
 
     public LinkedList<Personagem> aliadosDePersonagem(Personagem p) {
-        if (!aliancas.checkVertex(p)) {
+        if (!aliancas.validVertex(p)) {
             return null;
         }
         return alianca.aliadosDePersonagem(p);
     }
 
     public boolean novaAlianca(Personagem A, Personagem B, boolean Relacao, double compatibilidade) {
-        if (!aliancas.checkVertex(A) || !aliancas.checkVertex(B)) {
+        if (!aliancas.validVertex(A) || !aliancas.validVertex(B)) {
             return false;
         }
         if (compatibilidade < 0 || compatibilidade > 1) {

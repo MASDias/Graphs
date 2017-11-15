@@ -11,16 +11,16 @@ import java.util.Scanner;
 public class LeituraFicheiro {
 
 //Constante para leitura de locais
+    private final int LOCAL_LEITURA = 2;
     private final int LOCAL_LIGACAO_LEITURA = 3;
 
 //Constante para leitura de personagens
-    private final int PERSONAGEM_LEITURA = 2;
+    private final int PERSONAGEM_LEITURA = 3;
     private final int PERSONAGEM_ALIANCA_LEITURA = 4;
 
 //Constante para leitura de locais
     private final int LOCAL = 0;
     private final int DIFICULDADE = 1;
-    private final int DONO = 2;
 
 //Constante para leitura de caminhos entre locais
     private final int LOCAL_A = 0;
@@ -30,6 +30,7 @@ public class LeituraFicheiro {
 //Constante para leitura das personagens
     private final int PERSONAGEM = 0;
     private final int PERSONAGEM_FORCA = 1;
+    private final int DONO = 2;
 
 //constante para alinaças entre personagens
     private final int PERSONAGEM_A = 0;
@@ -59,8 +60,8 @@ public class LeituraFicheiro {
     }
 
     public void populateGame(String nomeLocais, String nomePersonagens, MenuPrincipal menu) {
-        lerPersonagens(nomePersonagens, menu);
         lerLocais(nomeLocais, menu);
+        lerPersonagens(nomePersonagens, menu);
     }
 
     private void lerPersonagens(String nomeFicheiro, MenuPrincipal menu) {
@@ -70,6 +71,7 @@ public class LeituraFicheiro {
                 String nome = linha.split(SPLIT)[PERSONAGEM];
                 int forca = Integer.parseInt(linha.split(SPLIT)[PERSONAGEM_FORCA]);
                 Personagem p = new Personagem(nome, forca);
+                getLocal(linha.split(SPLIT)[DONO], menu).setDono(p);
                 menu.getAliancas().insertVertex(p);
             }
             if (linha.split(SPLIT).length == PERSONAGEM_ALIANCA_LEITURA) {
@@ -79,46 +81,33 @@ public class LeituraFicheiro {
                 String nome_b = linha.split(SPLIT)[PERSONAGEM_B];
                 a = getPersonagem(nome_a, menu);
                 b = getPersonagem(nome_b, menu);
-                boolean publica = Boolean.parseBoolean(linha.split(SPLIT)[TIPO_ALIANCA]);
+                boolean relacao = Boolean.parseBoolean(linha.split(SPLIT)[TIPO_ALIANCA]);
                 double c = Double.parseDouble(linha.split(SPLIT)[COMPATIBILIDADE_LEITURA]);
-                menu.getAliancas().insertEdge(a, b, new Alianca(publica, c));
+                menu.getAliancas().insertEdge(a, b, relacao, c);
             }
         }
     }
 
     private void lerLocais(String nomeFicheiro, MenuPrincipal menu) {
         ArrayList<String> lista = lerFicheiro(nomeFicheiro);
-        String CAMINHOS = "CAMINHOS";
 
-        boolean flag = false;
         for (String linha : lista) {
-            if (linha.equals(CAMINHOS)) {
-                flag = true;
+
+            if (linha.split(SPLIT).length == LOCAL_LIGACAO_LEITURA) {
+                String localA = linha.split(SPLIT)[LOCAL_A];
+                String localB = linha.split(SPLIT)[LOCAL_B];
+                Local a = getLocal(localA, menu);
+                Local b = getLocal(localB, menu);
+                double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
+                menu.getGameMap().insertEdge(a, b, dificuldade);
             }
-            if (flag) {
-                if (linha.split(SPLIT).length > 1) {
-                    String localA = linha.split(SPLIT)[LOCAL_A];
-                    String localB = linha.split(SPLIT)[LOCAL_B];
-                    Local a = getLocal(localA, menu);
-                    Local b = getLocal(localB, menu);
-                    double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
-                    menu.getGameMap().insertEdge(a, b, dificuldade);
-                }
-            } else {
-                if (linha.split(SPLIT).length > 1) {
-                    String nomeDono = "";
 
-                    String nome = linha.split(SPLIT)[LOCAL];
-                    Personagem dono = null;
-                    int dificuldade = Integer.parseInt(linha.split(SPLIT)[DIFICULDADE]);
-
-                    if (linha.split(SPLIT).length == LOCAL_LIGACAO_LEITURA) {
-                        nomeDono = linha.split(SPLIT)[DONO];
-                        dono = getPersonagem(nomeDono, menu);
-                    }
-                    Local l = new Local(nome, dificuldade, dono);
-                    menu.getGameMap().insertVertex(l);
-                }
+            if (linha.split(SPLIT).length == LOCAL_LEITURA) {
+                String nome = linha.split(SPLIT)[LOCAL];
+                Personagem dono = null;
+                int dificuldade = Integer.parseInt(linha.split(SPLIT)[DIFICULDADE]);
+                Local l = new Local(nome, dificuldade, dono);
+                menu.getGameMap().insertVertex(l);
             }
         }
     }
