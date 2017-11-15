@@ -58,6 +58,6 @@ public class MenuPrincipal {
         if (compatibilidade < 0 || compatibilidade > 1) {
             return false;
         }
-        return alianca.novalAlianca(A, B, Relacao, compatibilidade);
+        return alianca.novaAlianca(A, B, Relacao, compatibilidade);
     }
 }

@@ -56,6 +56,14 @@ public class Alianca implements Cloneable {
         return true;
     }
 
+    public boolean isPublica() {
+        return publica;
+    }
+
+    public double getCompatibilade() {
+        return compatibilade;
+    }
+
     
 
 }

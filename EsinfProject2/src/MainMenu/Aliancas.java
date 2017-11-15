@@ -62,7 +62,7 @@ public class Aliancas {
         return listaAliados;
     }
 
-    public boolean  novalAlianca(Personagem a, Personagem b, boolean relacao, double compatibilidade) {
+    public boolean novaAlianca(Personagem a, Personagem b, boolean relacao, double compatibilidade) {
         if (aliancas.getEdge(a, b)==null && !a.equals(b)) {
             aliancas.insertEdge(a, b, new Alianca(relacao, compatibilidade));
             return true;
@@ -77,5 +77,28 @@ public class Aliancas {
             }
         }
         return null;
+    }
+    
+    public Map<LinkedList<Personagem>, Double> aliancaMaisForte(){
+        
+        Map<LinkedList<Personagem>, Double> mapaPersonagensForca = new HashMap<>();
+        LinkedList<Personagem> personagens = new LinkedList<>();
+        double forca = 0;
+        double maisForte = 0;
+        for (Personagem p : aliancas.vertices()) {
+            for (Personagem p2 : aliancas.directConnections(p)) {
+                if(aliancas.getEdge(p, p2) != null){
+                    forca = (p.getForca() + p2.getForca()) * aliancas.getEdge(p, p2).getCompatibilade();
+                    if(forca>maisForte){
+                        maisForte = forca;
+                        personagens.clear();
+                        personagens.add(p);
+                        personagens.add(p2);
+                    }
+                }
+            }
+        }
+        mapaPersonagensForca.put(personagens, maisForte);
+        return mapaPersonagensForca;
     }
 }
