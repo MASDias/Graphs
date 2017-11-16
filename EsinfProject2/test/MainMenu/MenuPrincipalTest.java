@@ -102,14 +102,11 @@ public class MenuPrincipalTest {
         System.out.println("locaisPersonagemPodeConsquistar");
         Personagem p = new Personagem("Pers0", 195);
         Local l = new Local("Local29", 20);
-
         Map<LinkedList<Local>, Double> expResult = null;
         Map<LinkedList<Local>, Double> result = menuPrincipal.locaisPersonagemPodeConsquistar(p, l);
-
         System.out.println(result);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-
     }
 
     /**
@@ -157,21 +154,6 @@ public class MenuPrincipalTest {
         expResult = true;
         result = menuPrincipal.novaAlianca(C, D, Relacao, compatibilidade);
         assertEquals("Tem que ser criada nova  alianca entre C e D, ainda nao existe alianca feita", expResult, result);
-
     }
-
-    /**
-     * Test of aliancaPossiveis method, of class MenuPrincipal.
-     */
-    @Test
-    public void testAliancaPossiveis() {
-        System.out.println("aliancaPossiveis");
-        Graph<Personagem, Boolean> expResult = null; 
-        Graph<Personagem, Boolean> result = menuPrincipal.aliancaPossiveis();
-        System.out.println(result.toString());
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+    
 }

@@ -23,6 +23,7 @@ public class Aliancas {
             return null;
         }
         Map<LinkedList<Local>, Double> locaisDificuldade = new HashMap<>();
+        
         LinkedList<Local> lista = new LinkedList<>();
         LinkedList<Local> caminhoConquistar = new LinkedList<>();
         //caminho de conquista mais facil (dificuldade de estradas)
@@ -80,7 +81,6 @@ public class Aliancas {
     }
 
     public Map<LinkedList<Personagem>, Double> aliancaMaisForte() {
-
         Map<LinkedList<Personagem>, Double> mapaPersonagensForca = new HashMap<>();
         LinkedList<Personagem> personagens = new LinkedList<>();
         double forca = 0;
@@ -102,21 +102,5 @@ public class Aliancas {
         return mapaPersonagensForca;
     }
 
-    public Graph<Personagem, Boolean> aliancasPossiveis(Graph<Personagem, Boolean> graph) {
-        Graph<Personagem, Boolean> clone = graph.clone();
-        double compatibilidade = 0.5;
-        boolean relacao = true;
-        for (Personagem p : clone.allkeyVerts()) {
-            for (Personagem p2 : clone.allkeyVerts()) {
-                if (clone.getEdge(p, p2)!= null && !p.equals(p2)) {
-                    for (Personagem p3 : clone.allkeyVerts()) {
-                        if (!p.equals(p3) && !p2.equals(p3) && clone.getEdge(p, p3)!= null) {
-                            clone.insertEdge(p, p3, relacao, compatibilidade);
-                        }
-                    }
-                }
-            }
-        }
-        return clone;
-    }
+    
 }

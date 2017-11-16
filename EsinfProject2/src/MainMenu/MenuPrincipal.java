@@ -60,7 +60,5 @@ public class MenuPrincipal {
         return alianca.novaAlianca(A, B, Relacao, compatibilidade);
     }
     
-    public Graph<Personagem, Boolean> aliancaPossiveis(){
-        return alianca.aliancasPossiveis(aliancas);
-    }
+    
 }

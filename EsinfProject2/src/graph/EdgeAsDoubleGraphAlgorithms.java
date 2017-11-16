@@ -110,7 +110,6 @@ public class EdgeAsDoubleGraphAlgorithms {
      * @param Queue Vertices in the path (empty if no path)
      */
     private static <V> void recreatePath(AdjacencyMatrixGraph<V, Double> graph, int sourceIdx, int destIdx, int[] verticesIndex, LinkedList<V> path) {
-
         path.add(graph.vertices.get(destIdx));
         if (sourceIdx != destIdx) {
             destIdx = verticesIndex[destIdx];
