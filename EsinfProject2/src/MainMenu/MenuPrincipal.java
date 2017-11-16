@@ -60,5 +60,11 @@ public class MenuPrincipal {
         return alianca.novaAlianca(A, B, Relacao, compatibilidade);
     }
     
+    public Map<LinkedList<Personagem>, Double> aliancaMaisForte(){
+        
+        Map<LinkedList<Personagem>, Double> maisForte = alianca.aliancaMaisForte();
+        
+        return maisForte;
+    }
     
 }

@@ -82,6 +82,7 @@ public class Aliancas {
     private double geradorCompatibilidade(LinkedList<Personagem> aliancaIndirecta) {
         double mediaCompatibilidade = 0;
         //remove a primeira personagem da lista
+        System.out.println(aliancaIndirecta.size());
         Personagem p1 = aliancaIndirecta.removeFirst();
         if (!aliancaIndirecta.isEmpty()) {
             for (Personagem p2 : aliancaIndirecta) {

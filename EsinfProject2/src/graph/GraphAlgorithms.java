@@ -134,6 +134,7 @@ public class GraphAlgorithms {
      * Actual paths search The method adds vertices to the current path (stack
      * of vertices) when destination is found, the current path is saved to the
      * list of paths
+     * 
      *
      * @param graph Graph object
      * @param sourceIdx Index of source vertex
