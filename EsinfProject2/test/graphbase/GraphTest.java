@@ -1,6 +1,5 @@
 package graphbase;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;

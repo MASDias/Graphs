@@ -32,7 +32,6 @@ public class EdgeAsDoubleGraphAlgorithms {
                     }
                 }
             }
-
             Double min = Double.MAX_VALUE;
             sourceIdx = -1;
             for (int i = 0; i < graph.numVertices; i++) {
@@ -60,42 +59,31 @@ public class EdgeAsDoubleGraphAlgorithms {
         if (sourceIdx == -1) {
             return -1;
         }
-
         int destIdx = graph.toIndex(dest);
         if (destIdx == -1) {
             return -1;
         }
-
         path.clear();
-
         boolean[] knownVertices = new boolean[graph.numVertices];
         int[] verticesIndex = new int[graph.numVertices];
         double[] minDist = new double[graph.numVertices];
-
         for (int i = 0; i < graph.numVertices; i++) {
             minDist[i] = Double.MAX_VALUE;
             verticesIndex[i] = -1;
         }
-
         shortestPath(graph, sourceIdx, knownVertices, verticesIndex, minDist);
-
         if (knownVertices[destIdx] == false) {
             return -1;
         }
-
         recreatePath(graph, sourceIdx, destIdx, verticesIndex, path);
-
         // recreatePath builds path in reverse order, so reverse
         LinkedList<V> stack = new LinkedList<V>();  //create a stack
-
         while (!path.isEmpty()) {
             stack.push(path.remove());
         }
-
         while (!stack.isEmpty()) {
             path.add(stack.pop());
         }
-
         return minDist[destIdx];
     }
 
