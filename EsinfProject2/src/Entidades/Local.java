@@ -8,7 +8,7 @@ public class Local {
     private int dificuldade;
     private Personagem dono;
 
-    public Local(String nome, int dificuldade,Personagem dono) {
+    public Local(String nome, int dificuldade, Personagem dono) {
         this.nome = nome;
         this.dificuldade = dificuldade;
         this.dono = dono;
@@ -20,6 +20,9 @@ public class Local {
     }
 
     public int getDificuldade() {
+        if (dono != null) {
+            return dificuldade + dono.getForca();
+        }
         return dificuldade;
     }
 

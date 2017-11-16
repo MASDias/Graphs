@@ -1,6 +1,5 @@
 package MainMenu;
 
-import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
@@ -11,7 +10,7 @@ import java.util.Map;
 public class MenuPrincipal {
 
     private AdjacencyMatrixGraph<Local, Double> gameMap;
-    private  Graph<Personagem, Boolean> aliancas;
+    private Graph<Personagem, Boolean> aliancas;
     private Mapa mapa;
     private Aliancas alianca;
 
@@ -20,14 +19,13 @@ public class MenuPrincipal {
         this.aliancas = new Graph<>(false);
         this.mapa = new Mapa(gameMap);
         this.alianca = new Aliancas(aliancas);
-
     }
 
     public AdjacencyMatrixGraph<Local, Double> getGameMap() {
         return gameMap;
     }
 
-    public  Graph<Personagem, Boolean> getAliancas() {
+    public Graph<Personagem, Boolean> getAliancas() {
         return aliancas;
     }
 
@@ -60,5 +58,9 @@ public class MenuPrincipal {
             return false;
         }
         return alianca.novaAlianca(A, B, Relacao, compatibilidade);
+    }
+    
+    public Graph<Personagem, Boolean> aliancaPossiveis(){
+        return alianca.aliancasPossiveis(aliancas);
     }
 }

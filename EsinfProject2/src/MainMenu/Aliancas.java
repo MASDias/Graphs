@@ -1,6 +1,5 @@
 package MainMenu;
 
-import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
@@ -103,17 +102,21 @@ public class Aliancas {
         return mapaPersonagensForca;
     }
 
-//    public void aliancasPossiveis() {
-//        for (Personagem p : aliancas.vertices()) {
-//            aliancasPossiveis.insertVertex(p);
-//        }
-//
-//        for (Personagem p : aliancas.vertices()) {
-//            for (Personagem p2 : aliancas.directConnections(p)) {
-//                if (aliancas.getEdge(p, p2) == null) {
-//                    aliancasPossiveis.insertEdge(p, p2, new Alianca(true));
-//                }
-//            }
-//        }
-//    }
+    public Graph<Personagem, Boolean> aliancasPossiveis(Graph<Personagem, Boolean> graph) {
+        Graph<Personagem, Boolean> clone = graph.clone();
+        double compatibilidade = 0.5;
+        boolean relacao = true;
+        for (Personagem p : clone.allkeyVerts()) {
+            for (Personagem p2 : clone.allkeyVerts()) {
+                if (clone.getEdge(p, p2)!= null && !p.equals(p2)) {
+                    for (Personagem p3 : clone.allkeyVerts()) {
+                        if (!p.equals(p3) && !p2.equals(p3) && clone.getEdge(p, p3)!= null) {
+                            clone.insertEdge(p, p3, relacao, compatibilidade);
+                        }
+                    }
+                }
+            }
+        }
+        return clone;
+    }
 }

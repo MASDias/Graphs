@@ -132,7 +132,6 @@ public class MenuPrincipalTest {
      */
     @Test
     public void testNovaAlianca() {
-
         boolean result = menuPrincipal.novaAlianca(new Personagem("Teste", 12), new Personagem("Pers0", 195), true, 0.12);
         assertFalse("Nao existe Personanm, tem que ser falso", result);
         result = menuPrincipal.novaAlianca(new Personagem("Pers0", 195), new Personagem("Pers0", 195), true, 0.12);
@@ -159,6 +158,20 @@ public class MenuPrincipalTest {
         result = menuPrincipal.novaAlianca(C, D, Relacao, compatibilidade);
         assertEquals("Tem que ser criada nova  alianca entre C e D, ainda nao existe alianca feita", expResult, result);
 
+    }
+
+    /**
+     * Test of aliancaPossiveis method, of class MenuPrincipal.
+     */
+    @Test
+    public void testAliancaPossiveis() {
+        System.out.println("aliancaPossiveis");
+        Graph<Personagem, Boolean> expResult = null; 
+        Graph<Personagem, Boolean> result = menuPrincipal.aliancaPossiveis();
+        System.out.println(result.toString());
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
