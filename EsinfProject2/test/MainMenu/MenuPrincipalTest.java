@@ -52,41 +52,13 @@ public class MenuPrincipalTest {
     }
 
     /**
-     * Test of getGameMap method, of class MenuPrincipal.
-     */
-    @Test
-    public void testGetGameMap() {
-        System.out.println("getGameMap");
-        MenuPrincipal instance = new MenuPrincipal();
-        AdjacencyMatrixGraph<Local, Double> expResult = null;
-        AdjacencyMatrixGraph<Local, Double> result = instance.getGameMap();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getAliancas method, of class MenuPrincipal.
-     */
-    @Test
-    public void testGetAliancas() {
-        System.out.println("getAliancas");
-        MenuPrincipal instance = new MenuPrincipal();
-        AdjacencyMatrixGraph<Personagem, Alianca> expResult = null;
-        Graph<Personagem, Boolean> result = menuPrincipal.getAliancas();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of caminhoMaisProximo method, of class MenuPrincipal.
      */
     @Test
     public void testCaminhoMaisProximo() {
         System.out.println("caminhoMaisProximo");
-        Local l1 = new  Local("Local0", 30);
-        Local l2 = new  Local("Local29", 31);
+        Local l1 = new Local("Local0", 30);
+        Local l2 = new Local("Local29", 31);
         LinkedList expResult = null;
         LinkedList result = menuPrincipal.caminhoMaisProximo(l1, l2);
         System.out.println(result);
@@ -154,7 +126,7 @@ public class MenuPrincipalTest {
         expResult = true;
         result = menuPrincipal.novaAlianca(C, D, Relacao, compatibilidade);
         assertEquals("Tem que ser criada nova alianca direta entre C e D, ainda nao existe alianca feita", expResult, result);
-        
+
         Personagem E = new Personagem("Pers0", 195);
         Personagem F = new Personagem("Pers2", 112);
         Relacao = true;
@@ -163,5 +135,5 @@ public class MenuPrincipalTest {
         result = menuPrincipal.novaAlianca(E, F, Relacao, compatibilidade);
         assertEquals("Tem que ser criada nova alianca direta entre E e F, ainda nao existe alianca feita", expResult, result);
     }
-    
+
 }
