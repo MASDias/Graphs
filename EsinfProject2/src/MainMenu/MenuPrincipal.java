@@ -1,8 +1,11 @@
 package MainMenu;
 
+import Entidades.Conquista;
 import Entidades.Local;
 import Entidades.Personagem;
 import graph.AdjacencyMatrixGraph;
+import graph.AlgoritmosJogo;
+import graphbase.Edge;
 import graphbase.Graph;
 import java.util.LinkedList;
 import java.util.Map;
@@ -59,12 +62,48 @@ public class MenuPrincipal {
         }
         return alianca.novaAlianca(A, B, Relacao, compatibilidade);
     }
-    
-    public Map<LinkedList<Personagem>, Double> aliancaMaisForte(){
-        
+
+    public Map<LinkedList<Personagem>, Double> aliancaMaisForte() {
+
         Map<LinkedList<Personagem>, Double> maisForte = alianca.aliancaMaisForte();
-        
+
         return maisForte;
     }
-    
+
+    public Conquista verificarConquistaComAliado(Personagem p, Personagem aliado, Local localP, Local alvo) {
+        if (!gameMap.checkVertex(localP) || !gameMap.checkVertex(localP)) {
+            return null;
+        }
+
+        AdjacencyMatrixGraph<Local, Double> mapWithoutAllies = (AdjacencyMatrixGraph<Local, Double>) gameMap.clone();
+
+        for (Local l : mapWithoutAllies.vertices()) {
+            if (l.getDono().equals(aliado)) {
+                mapWithoutAllies.removeVertex(l);
+            }
+        }
+
+        LinkedList<Local> locaisAConquistar = new LinkedList<>();
+        AlgoritmosJogo.conquistaMaisFacil(mapWithoutAllies, localP, alvo, locaisAConquistar);
+        
+        double forcaAlianca = (p.getForca() + aliado.getForca()) * aliancas.getEdge(p, aliado).getWeight();
+        double forcaNecessaria = 0;
+        boolean sucesso = false;
+
+        Local local2 = locaisAConquistar.getFirst();
+
+        for (Local local : locaisAConquistar) {
+            if (!local.equals(local2)) {
+                forcaNecessaria += local.getDificuldade() + mapWithoutAllies.getEdge(local, local2);
+                local2 = local;
+            }
+        }
+        
+        if(forcaAlianca > forcaNecessaria){
+            sucesso = true;
+        }
+
+        return new Conquista(sucesso, locaisAConquistar, forcaNecessaria, aliado);
+    }
+
 }

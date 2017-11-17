@@ -13,6 +13,14 @@ public class Conquista {
     private boolean sucesso;
     private LinkedList<Local> locaisAConquistar;
     private double forca;
+    private Personagem aliado;
+
+    public Conquista(boolean sucesso, LinkedList<Local> locaisAConquistar, double forca, Personagem aliado) {
+        this.sucesso = sucesso;
+        this.locaisAConquistar = locaisAConquistar;
+        this.forca = forca;
+        this.aliado = aliado;
+    }
 
     public Conquista(boolean sucesso, LinkedList<Local> locaisAConquistar, double forca) {
         this.sucesso = sucesso;
@@ -20,17 +28,45 @@ public class Conquista {
         this.forca = forca;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return new Conquista(sucesso, locaisAConquistar, forca);
+    public boolean isSucesso() {
+        return sucesso;
     }
-    
+
+    public void setSucesso(boolean sucesso) {
+        this.sucesso = sucesso;
+    }
+
+    public LinkedList<Local> getLocaisAConquistar() {
+        return locaisAConquistar;
+    }
+
+    public void setLocaisAConquistar(LinkedList<Local> locaisAConquistar) {
+        this.locaisAConquistar = locaisAConquistar;
+    }
+
+    public double getForca() {
+        return forca;
+    }
+
+    public void setForca(double forca) {
+        this.forca = forca;
+    }
+
+    public Personagem getAliado() {
+        return aliado;
+    }
+
+    public void setAliado(Personagem aliado) {
+        this.aliado = aliado;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.sucesso ? 1 : 0);
-        hash = 59 * hash + Objects.hashCode(this.locaisAConquistar);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.forca) ^ (Double.doubleToLongBits(this.forca) >>> 32));
+        int hash = 5;
+        hash = 89 * hash + (this.sucesso ? 1 : 0);
+        hash = 89 * hash + Objects.hashCode(this.locaisAConquistar);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.forca) ^ (Double.doubleToLongBits(this.forca) >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.aliado);
         return hash;
     }
 
@@ -52,27 +88,20 @@ public class Conquista {
         if (Double.doubleToLongBits(this.forca) != Double.doubleToLongBits(other.forca)) {
             return false;
         }
+        if (!Objects.equals(this.aliado, other.aliado)) {
+            return false;
+        }
         return true;
-    }
-    
-    
-
-    public boolean isSucesso() {
-        return sucesso;
-    }
-
-    public LinkedList<Local> getLocaisAConquistar() {
-        return locaisAConquistar;
-    }
-
-    public double getForca() {
-        return forca;
     }
 
     @Override
     public String toString() {
-        return "Conquista{" + "sucesso=" + sucesso + ", locaisAConquistar=" + locaisAConquistar + ", forca=" + forca + '}';
+        return "Conquista{" + "sucesso=" + sucesso + ", locaisAConquistar=" + locaisAConquistar + ", forca=" + forca + ", aliado=" + aliado + '}';
     }
+
+    
+
+    
     
     
             
