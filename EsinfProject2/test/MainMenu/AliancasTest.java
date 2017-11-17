@@ -89,16 +89,18 @@ public class AliancasTest {
     @Test
     public void testNovaAlianca() {
         System.out.println("novaAlianca");
-        Personagem a = null;
-        Personagem b = null;
-        boolean relacao = false;
-        double compatibilidade = 0.0;
+        Personagem C = new Personagem("Pers0", 195);
+        Personagem D = new Personagem("Pers2", 112);
+        boolean relacao = true;
+        double compatibilidade = 0.60;
         Aliancas instance = null;
         boolean expResult = false;
-        boolean result = instance.novaAlianca(a, b, relacao, compatibilidade);
+        LinkedList<Personagem> l = new LinkedList<>();
+        graphbase.GraphAlgorithms.shortestPath(menuPrincipal.getAliancas(), C, D, l);
+        System.out.println(l);
+        boolean result = menuPrincipal.novaAlianca(C, D, relacao, compatibilidade);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**

@@ -153,7 +153,15 @@ public class MenuPrincipalTest {
         compatibilidade = 0.60;
         expResult = true;
         result = menuPrincipal.novaAlianca(C, D, Relacao, compatibilidade);
-        assertEquals("Tem que ser criada nova  alianca entre C e D, ainda nao existe alianca feita", expResult, result);
+        assertEquals("Tem que ser criada nova alianca direta entre C e D, ainda nao existe alianca feita", expResult, result);
+        
+        Personagem E = new Personagem("Pers0", 195);
+        Personagem F = new Personagem("Pers2", 112);
+        Relacao = true;
+        compatibilidade = 0.3;
+        expResult = true;
+        result = menuPrincipal.novaAlianca(E, F, Relacao, compatibilidade);
+        assertEquals("Tem que ser criada nova alianca direta entre E e F, ainda nao existe alianca feita", expResult, result);
     }
     
 }

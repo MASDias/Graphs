@@ -27,9 +27,9 @@ public class Personagem {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.nome);
-        hash = 83 * hash + this.forca;
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.nome);
+        hash = 37 * hash + this.forca;
         return hash;
     }
 

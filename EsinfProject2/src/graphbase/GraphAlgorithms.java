@@ -196,7 +196,7 @@ public class GraphAlgorithms {
      */
     private static <V, E> void getPath(Graph<V, E> g, V vOrig, V vDest, V[] verts, int[] pathKeys, LinkedList<V> path) {
 
-        if (vOrig != vDest) {
+        if (!vOrig.equals(vDest)) {
             path.push(vDest);
 
             int vKey = g.getKey(vDest);

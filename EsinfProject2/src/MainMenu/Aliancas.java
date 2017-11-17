@@ -70,7 +70,7 @@ public class Aliancas {
             Graph<Personagem, Boolean> newGraph = geradorAliancasPublicas();
             LinkedList<Personagem> caminhoAlianca = new LinkedList<>();
             GraphAlgorithms.shortestPath(newGraph, a, b, caminhoAlianca);
-            if (caminhoAlianca != null) {
+            if (caminhoAlianca.size() != 0) {
                 compatibilidade = geradorCompatibilidade(caminhoAlianca);
             }
             aliancas.insertEdge(a, b, relacao, compatibilidade);
@@ -82,18 +82,18 @@ public class Aliancas {
     private double geradorCompatibilidade(LinkedList<Personagem> aliancaIndirecta) {
         double mediaCompatibilidade = 0;
         //remove a primeira personagem da lista
-        System.out.println(aliancaIndirecta.size());
         Personagem p1 = aliancaIndirecta.removeFirst();
-        if (!aliancaIndirecta.isEmpty()) {
+        int count = 0;
             for (Personagem p2 : aliancaIndirecta) {
                 //faz o ciclo apartir da segunda personagem , pois agora tem acesso ao seu vertice adjacente (p1 neste caso)
                 //podendo assim retirar o seu peso
                 mediaCompatibilidade += aliancas.getEdge(p1, p2).getWeight();
+                count++;
                 //actualiza o vertice origem para o acesso ao Edge
                 p1 = p2;
             }
-        }
-        return mediaCompatibilidade;
+        
+        return mediaCompatibilidade/count;
     }
 
     private Graph<Personagem, Boolean> geradorAliancasPublicas() {
@@ -109,6 +109,7 @@ public class Aliancas {
                 edge.setWeight(1);
             }
         }
+        
         return aliancasPublicas;
     }
 
@@ -143,4 +144,5 @@ public class Aliancas {
         return mapaPersonagensForca;
     }
 
+    
 }
