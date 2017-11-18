@@ -21,8 +21,7 @@ public class Aliancas {
         this.aliancas = aliancas;
     }
 
-    public Conquista conquistarLocais(Personagem p, Local localDestino, AdjacencyMatrixGraph<Local, Double> gameMap) {
-        Local localActual = getDonoLocal(p, gameMap);
+    public Conquista conquistarLocais(Personagem p, Local localActual, Local localDestino, AdjacencyMatrixGraph<Local, Double> gameMap) {
         if (localActual.equals(null)) {
             return null;
         }
@@ -37,8 +36,13 @@ public class Aliancas {
         boolean sucesso = false;
         for (Local local : caminhoConquistar) {
             if (!localActual.equals(local)) {
-                forcaNecessaria += local.getDificuldade() + gameMap.getEdge(localActual, local);
-                localActual = local;
+                if (local.getDono() != p) {
+                    forcaNecessaria += local.getDificuldade() + gameMap.getEdge(localActual, local);
+                    localActual = local;
+                } else {
+                    forcaNecessaria += gameMap.getEdge(localActual, local);
+                    localActual = local;
+                }
             }
         }
         if (forcaJogador > forcaNecessaria) {

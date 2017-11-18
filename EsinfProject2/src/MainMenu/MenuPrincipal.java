@@ -90,11 +90,11 @@ public class MenuPrincipal {
         return graphAliancas;
     }
 
-    public Conquista locaisPersonagemPodeConsquistar(Personagem p, Local l) {
+    public Conquista locaisPersonagemPodeConsquistar(Personagem p, Local l, Local l2) {
         if (!gameMap.checkVertex(l) || !graphAliancas.validVertex(p)) {
             return null;
         }
-        return alianca.conquistarLocais(p, l, gameMap);
+        return alianca.conquistarLocais(p, l, l2, gameMap);
     }
 
     public LinkedList<Local> caminhoMaisProximo(Local l1, Local l2) {

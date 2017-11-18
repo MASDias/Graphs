@@ -19,10 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author MarioDias
- */
 public class MenuPrincipalTest {
 
     private MenuPrincipal menuPrincipal = new MenuPrincipal();
@@ -134,8 +130,9 @@ public class MenuPrincipalTest {
     public void testLocaisPersonagemPodeConsquistar() {
         System.out.println("Locais Personagem pode conquistar");
         Personagem p = new Personagem("Pers8", 481);
-        Local l = new Local("Local30", 30);
-        Conquista result = menuPrincipal.locaisPersonagemPodeConsquistar(p, l);
+        Local localDestino = new Local("Local30", 30);
+        Local localAtual = new Local("Local18", 30);
+        Conquista result = menuPrincipal.locaisPersonagemPodeConsquistar(p,localAtual,localDestino);
         LinkedList<Local> expList = new LinkedList<>();
         expList.add(new Local("Local18", 30, new Personagem("Pers8", 481)));
         expList.add(new Local("Local28", 20));
@@ -146,8 +143,64 @@ public class MenuPrincipalTest {
         Conquista expResult = new Conquista(expSuccess, expList, expForca);
         assertEquals(expResult, result);
         
+        MenuPrincipal instance = new MenuPrincipal();
         
+        Personagem A = new Personagem("A", 200);
+        Personagem B = new Personagem("B", 300);
+        Personagem C = new Personagem("C", 150);
+        Personagem D = new Personagem("D", 200);
+        
+        instance.adicionarPersonagem(A);
+        instance.adicionarPersonagem(B);
+        instance.adicionarPersonagem(C);
+        instance.adicionarPersonagem(D);
+        
+        Local l1 = new Local("Local1", 30, A);
+        Local l2 = new Local("Local2", 50, A);
+        Local l3 = new Local("Local3", 50);
+        Local l4 = new Local("Local4", 37);
+        Local l5 = new Local("Local5", 20);
+        Local l6 = new Local("Local6", 10);
+        
+        instance.adicionarLocalJogo(l1);
+        instance.adicionarLocalJogo(l2);
+        instance.adicionarLocalJogo(l3);
+        instance.adicionarLocalJogo(l4);
+        instance.adicionarLocalJogo(l5);
+        instance.adicionarLocalJogo(l6);
+        
+        instance.insertEstradaLocal(l2, l1, 20);
+        instance.insertEstradaLocal(l2, l3, 10);
+        instance.insertEstradaLocal(l3, l5, 30);
+        instance.insertEstradaLocal(l5, l6, 100);
+        instance.insertEstradaLocal(l1, l4, 30);
+        instance.insertEstradaLocal(l4, l6, 20);
+        instance.insertEstradaLocal(l4, l3, 40);
+        
+        LinkedList<Local> expList2 = new LinkedList<>();
+        expList2.add(l2);
+        expList2.add(l1);
+        expList2.add(l4);
+        expList2.add(l6);
+        
+        Conquista expResultConquista = new Conquista(Boolean.TRUE, expList2, 117);
+        Conquista resultConquista = instance.locaisPersonagemPodeConsquistar(A, l2, l6);
+        
+        assertEquals(expResultConquista, resultConquista);
+        
+        l4.setDono(D);
+        
+        expList2.clear();
+        expList2.add(l2);
+        expList2.add(l3);
+        expList2.add(l5);
+        expList2.add(l6);
+             
+        expResultConquista = new Conquista(Boolean.FALSE, expList2, 220);
+        resultConquista = instance.locaisPersonagemPodeConsquistar(A, l2, l6);
+        assertEquals(expResultConquista, resultConquista);
     }
+    
 
     /**
      * Test of aliancaMaisForte method, of class MenuPrincipal.
@@ -246,8 +299,7 @@ public class MenuPrincipalTest {
         resultConquista = instance.verificarConquistaComAliado(A, new Personagem("Invalida", 123), l2, l6);
         assertNull( resultConquista);
         resultConquista = instance.verificarConquistaComAliado(A, B, new Local("LocalInvalido", 12), l6);
-        assertNull( resultConquista);
-        
+        assertNull( resultConquista);    
         resultConquista = instance.verificarConquistaComAliado(A, B, l2, new Local("LocalInvalido", 12));
         assertNull(resultConquista);
         
