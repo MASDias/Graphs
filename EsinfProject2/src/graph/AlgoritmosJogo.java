@@ -1,11 +1,12 @@
 package graph;
 
 import Entidades.Local;
+import Entidades.Personagem;
 import java.util.LinkedList;
 
 public class AlgoritmosJogo {
 
-    private static void conquistaMaisFacil(AdjacencyMatrixGraph<Local, Double> graph, int sourceIdx, boolean[] knownVertices, int[] verticesIndex, double[] minDist) {
+    private static void conquistaMaisFacil(AdjacencyMatrixGraph<Local, Double> graph, int sourceIdx, boolean[] knownVertices, int[] verticesIndex, double[] minDist, Personagem p) {
         minDist[sourceIdx] = 0;
         while (sourceIdx != -1) {
             knownVertices[sourceIdx] = true;
@@ -13,8 +14,13 @@ public class AlgoritmosJogo {
                 int i = graph.toIndex(vertice);
                 if (graph.privateGet(sourceIdx, i) != null) {
                     if (!knownVertices[i] && minDist[i] > minDist[sourceIdx] + vertice.getDificuldade() + graph.privateGet(sourceIdx, i)) {
-                        minDist[i] = minDist[sourceIdx] + vertice.getDificuldade() + graph.privateGet(sourceIdx, i);
-                        verticesIndex[i] = sourceIdx;
+                        if (vertice.getDono() != p) {
+                            minDist[i] = minDist[sourceIdx] + vertice.getDificuldade() + graph.privateGet(sourceIdx, i);
+                            verticesIndex[i] = sourceIdx;
+                        } else {
+                            minDist[i] = minDist[sourceIdx] + graph.privateGet(sourceIdx, i);
+                            verticesIndex[i] = sourceIdx;
+                        }
                     }
                 }
             }
@@ -41,7 +47,7 @@ public class AlgoritmosJogo {
      * @return minimum distance, -1 if vertices not in graph or no path
      *
      */
-    public static double conquistaMaisFacil(AdjacencyMatrixGraph<Local, Double> graph, Local source, Local dest, LinkedList<Local> path) {
+    public static double conquistaMaisFacil(AdjacencyMatrixGraph<Local, Double> graph, Local source, Local dest, LinkedList<Local> path, Personagem p) {
         int sourceIdx = graph.toIndex(source);
         if (sourceIdx == -1) {
             return -1;
@@ -58,7 +64,7 @@ public class AlgoritmosJogo {
             minDist[i] = Double.MAX_VALUE;
             verticesIndex[i] = -1;
         }
-        AlgoritmosJogo.conquistaMaisFacil(graph, sourceIdx, knownVertices, verticesIndex, minDist);
+        AlgoritmosJogo.conquistaMaisFacil(graph, sourceIdx, knownVertices, verticesIndex, minDist, p);
         if (knownVertices[destIdx] == false) {
             return -1;
         }

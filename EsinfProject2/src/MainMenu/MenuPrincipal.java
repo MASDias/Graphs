@@ -130,7 +130,7 @@ public class MenuPrincipal {
     }
 
     public Conquista verificarConquistaComAliado(Personagem p, Personagem aliado, Local localP, Local alvo) {
-        if (!gameMap.checkVertex(localP) || !gameMap.checkVertex(localP) || !graphAliancas.validVertex(p) || !graphAliancas.validVertex(aliado)) {
+        if (!gameMap.checkVertex(localP) || !gameMap.checkVertex(alvo) || !graphAliancas.validVertex(p) || !graphAliancas.validVertex(aliado)) {
             return null;
         }
         AdjacencyMatrixGraph<Local, Double> mapWithoutAllies = gameMap.clone();
@@ -140,15 +140,21 @@ public class MenuPrincipal {
             }
         }
         LinkedList<Local> locaisAConquistar = new LinkedList<>();
-        AlgoritmosJogo.conquistaMaisFacil(mapWithoutAllies, localP, alvo, locaisAConquistar);
+        AlgoritmosJogo.conquistaMaisFacil(mapWithoutAllies, localP, alvo, locaisAConquistar, p);
         double forcaAlianca = (p.getForca() + aliado.getForca()) * graphAliancas.getEdge(p, aliado).getWeight();
         double forcaNecessaria = 0;
         boolean sucesso = false;
+        if(locaisAConquistar.isEmpty()) return new Conquista(Boolean.FALSE, new LinkedList<Local>(), 0,aliado);
         Local local2 = locaisAConquistar.getFirst();
         for (Local local : locaisAConquistar) {
             if (!local.equals(local2)) {
-                forcaNecessaria += local.getDificuldade() + mapWithoutAllies.getEdge(local, local2);
-                local2 = local;
+                if (local.getDono() != p) {
+                    forcaNecessaria += local.getDificuldade() + mapWithoutAllies.getEdge(local, local2);
+                    local2 = local;
+                } else {
+                    forcaNecessaria += mapWithoutAllies.getEdge(local, local2);
+                    local2 = local;
+                }
             }
         }
         if (forcaAlianca > forcaNecessaria) {

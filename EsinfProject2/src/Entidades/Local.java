@@ -19,6 +19,7 @@ public class Local {
         this.dificuldade = dificuldade;
     }
 
+    
     public int getDificuldade() {
         if (dono != null) {
             return dificuldade + dono.getForca();

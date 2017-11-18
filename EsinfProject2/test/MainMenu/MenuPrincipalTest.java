@@ -10,11 +10,8 @@ import Entidades.Conquista;
 import Entidades.Local;
 import Entidades.Personagem;
 import Ficheiro.LeituraFicheiro;
-import graph.AdjacencyMatrixGraph;
-import graphbase.Edge;
 import graphbase.Graph;
 import java.util.LinkedList;
-import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -148,6 +145,8 @@ public class MenuPrincipalTest {
         boolean expSuccess = true;
         Conquista expResult = new Conquista(expSuccess, expList, expForca);
         assertEquals(expResult, result);
+        
+        
     }
 
     /**
@@ -186,6 +185,88 @@ public class MenuPrincipalTest {
         Conquista expResult = new Conquista(expSuccess, expList, expForca, aliado);
         Conquista result = menuPrincipal.verificarConquistaComAliado(personagem, aliado, localP, alvo);
         assertEquals(expResult, result);
+        
+        MenuPrincipal instance = new MenuPrincipal();
+        Personagem A = new Personagem("A", 400);
+        Personagem B = new Personagem("B", 300);
+        Personagem C = new Personagem("C", 150);
+        Personagem D = new Personagem("D", 200);
+        
+        instance.adicionarPersonagem(A);
+        instance.adicionarPersonagem(B);
+        instance.adicionarPersonagem(C);
+        instance.adicionarPersonagem(D);
+        
+        instance.insertAlianca(A, B, Boolean.TRUE, 0.8);
+        instance.insertAlianca(A, D, Boolean.TRUE, 0.5);
+        
+        Local l1 = new Local("Local1", 50, A);
+        Local l2 = new Local("Local2", 50, A);
+        Local l3 = new Local("Local3", 70, B);
+        Local l4 = new Local("Local4", 37, D);
+        Local l5 = new Local("Local5", 50, B);
+        Local l6 = new Local("Local6", 10, C);
+        Local l7 = new Local("Local7", 40);
+        
+        instance.adicionarLocalJogo(l1);
+        instance.adicionarLocalJogo(l2);
+        instance.adicionarLocalJogo(l3);
+        instance.adicionarLocalJogo(l4);
+        instance.adicionarLocalJogo(l5);
+        instance.adicionarLocalJogo(l6);
+        instance.adicionarLocalJogo(l7);
+        
+        instance.insertEstradaLocal(l1, l2, 20);
+        instance.insertEstradaLocal(l1, l7, 27);
+        instance.insertEstradaLocal(l7, l4, 30);
+        instance.insertEstradaLocal(l4, l6, 17);
+        instance.insertEstradaLocal(l4, l3, 53);
+        instance.insertEstradaLocal(l3, l5, 28);
+        instance.insertEstradaLocal(l2, l3, 18);
+        
+        LinkedList<Local> expList2 = new LinkedList<>();
+        expList2.add(l2);
+        expList2.add(l1);
+        expList2.add(l7);
+        expList2.add(l4);
+        expList2.add(l6);
+        Conquista expResultConquista = new Conquista(Boolean.TRUE, expList2, 531, B);
+        Conquista resultConquista = instance.verificarConquistaComAliado(A, B, l2, l6);
+        assertEquals(expResultConquista, resultConquista);
+        
+        l4.setDono(B);
+        expResultConquista = new Conquista(Boolean.FALSE, new LinkedList<Local>(), 0, B);
+        resultConquista = instance.verificarConquistaComAliado(A, B, l2, l6);
+        assertEquals(expResultConquista, resultConquista);
+        
+        
+        
+        resultConquista = instance.verificarConquistaComAliado(new Personagem("Invalida", 123), B, l2, l6);
+        assertNull( resultConquista);
+        resultConquista = instance.verificarConquistaComAliado(A, new Personagem("Invalida", 123), l2, l6);
+        assertNull( resultConquista);
+        resultConquista = instance.verificarConquistaComAliado(A, B, new Local("LocalInvalido", 12), l6);
+        assertNull( resultConquista);
+        
+        resultConquista = instance.verificarConquistaComAliado(A, B, l2, new Local("LocalInvalido", 12));
+        assertNull(resultConquista);
+        
+        l4.setDono(D);
+        Local l8 = new Local("Local8", 5);
+        instance.adicionarLocalJogo(l8);
+        
+        instance.insertEstradaLocal(l7, l8, 10);
+        instance.insertEstradaLocal(l8, l6, 15);
+        
+        expList2.clear();
+        expList2.add(l2);
+        expList2.add(l1);
+        expList2.add(l7);
+        expList2.add(l8);
+        expList2.add(l6);
+        expResultConquista = new Conquista(Boolean.TRUE, expList2, 277, B);
+        resultConquista = instance.verificarConquistaComAliado(A, B, l2, l6);
+        assertEquals(expResultConquista, resultConquista);
     }
 
     /**

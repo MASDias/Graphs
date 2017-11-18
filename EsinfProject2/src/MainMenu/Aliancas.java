@@ -28,7 +28,7 @@ public class Aliancas {
         }
         LinkedList<Local> caminhoConquistar = new LinkedList<>();
         //caminho de conquista mais facil (dificuldade de estradas e locai caso os mesmo tenham donos ou nao)
-        AlgoritmosJogo.conquistaMaisFacil(gameMap, localActual, localDestino, caminhoConquistar);
+        AlgoritmosJogo.conquistaMaisFacil(gameMap, localActual, localDestino, caminhoConquistar, p);
         //forca actual do jogador
         double forcaJogador = p.getForca();
         //total de força necessaria para poder conquistar 
