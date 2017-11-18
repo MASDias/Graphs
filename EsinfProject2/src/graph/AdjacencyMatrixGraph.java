@@ -474,7 +474,7 @@ public class AdjacencyMatrixGraph<V, E> implements BasicGraph<V, E>, Cloneable {
      * @return the new cloned graph
      */
     @SuppressWarnings("unchecked")
-    public Object clone() {
+    public AdjacencyMatrixGraph<V, E> clone() {
         AdjacencyMatrixGraph<V, E> newObject = new AdjacencyMatrixGraph<V, E>();
         for (V v : vertices) {
             newObject.insertVertex(v);

@@ -1,6 +1,5 @@
 package Ficheiro;
 
-import Entidades.Alianca;
 import Entidades.Local;
 import Entidades.Personagem;
 import MainMenu.MenuPrincipal;
@@ -70,18 +69,18 @@ public class LeituraFicheiro {
                 String nome = linha.split(SPLIT)[PERSONAGEM];
                 int forca = Integer.parseInt(linha.split(SPLIT)[PERSONAGEM_FORCA]);
                 Personagem p = new Personagem(nome, forca);
-                menu.getAliancas().insertVertex(p);
+                menu.adicionarPersonagem(p);
             }
             if (linha.split(SPLIT).length == PERSONAGEM_ALIANCA_LEITURA) {
                 Personagem a = null;
                 Personagem b = null;
                 String nome_a = linha.split(SPLIT)[PERSONAGEM_A];
                 String nome_b = linha.split(SPLIT)[PERSONAGEM_B];
-                a = getPersonagem(nome_a, menu);
-                b = getPersonagem(nome_b, menu);
+                a = getPersonagemPorNome(nome_a, menu);
+                b = getPersonagemPorNome(nome_b, menu);
                 boolean relacao = Boolean.parseBoolean(linha.split(SPLIT)[TIPO_ALIANCA]);
                 double c = Double.parseDouble(linha.split(SPLIT)[COMPATIBILIDADE_LEITURA]);
-                menu.getAliancas().insertEdge(a, b, relacao, c);
+                menu.insertAlianca(a, b, relacao, c);
             }
         }
     }
@@ -98,28 +97,27 @@ public class LeituraFicheiro {
                 if (localLigacao) {
                     String localA = linha.split(SPLIT)[LOCAL_A];
                     String localB = linha.split(SPLIT)[LOCAL_B];
-                    Local a = getLocal(localA, menu);
-                    Local b = getLocal(localB, menu);
+                    Local a = getLocalPorDono(localA, menu);
+                    Local b = getLocalPorDono(localB, menu);
                     double dificuldade = Double.parseDouble(linha.split(SPLIT)[DIFICULDADE_CAMINHO]);
-                    menu.getGameMap().insertEdge(a, b, dificuldade);
+                    menu.insertEstradaLocal(a, b, dificuldade);
                 } else {
-
                     String nome = linha.split(SPLIT)[LOCAL];
                     Personagem dono = null;
                     int dificuldade = Integer.parseInt(linha.split(SPLIT)[DIFICULDADE]);
                     if (linha.split(SPLIT).length == LOCAL_LEITURA) {
-                        dono = getPersonagem(linha.split(SPLIT)[DONO], menu);
+                        dono = getPersonagemPorNome(linha.split(SPLIT)[DONO], menu);
                     }
                     Local l = new Local(nome, dificuldade, dono);
-                    menu.getGameMap().insertVertex(l);
+                    menu.adicionarLocalJogo(l);
                 }
             }
 
         }
     }
 
-    private Personagem getPersonagem(String nome, MenuPrincipal menu) {
-        for (Personagem p : menu.getAliancas().vertices()) {
+    private Personagem getPersonagemPorNome(String nome, MenuPrincipal menu) {
+        for (Personagem p : menu.getGraphAliancas().vertices()) {
             if (p.getNome().equals(nome)) {
                 return p;
             }
@@ -127,7 +125,7 @@ public class LeituraFicheiro {
         return null;
     }
 
-    private Local getLocal(String nome, MenuPrincipal menu) {
+    private Local getLocalPorDono(String nome, MenuPrincipal menu) {
         for (Local l : menu.getGameMap().vertices()) {
             if (l.getNome().equals(nome)) {
                 return l;

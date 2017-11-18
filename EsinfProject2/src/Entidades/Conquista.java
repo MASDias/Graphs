@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Conquista {
-    
+
     private boolean sucesso;
     private LinkedList<Local> locaisAConquistar;
     private double forca;
@@ -32,32 +32,16 @@ public class Conquista {
         return sucesso;
     }
 
-    public void setSucesso(boolean sucesso) {
-        this.sucesso = sucesso;
-    }
-
     public LinkedList<Local> getLocaisAConquistar() {
         return locaisAConquistar;
-    }
-
-    public void setLocaisAConquistar(LinkedList<Local> locaisAConquistar) {
-        this.locaisAConquistar = locaisAConquistar;
     }
 
     public double getForca() {
         return forca;
     }
 
-    public void setForca(double forca) {
-        this.forca = forca;
-    }
-
     public Personagem getAliado() {
         return aliado;
-    }
-
-    public void setAliado(Personagem aliado) {
-        this.aliado = aliado;
     }
 
     @Override
@@ -96,13 +80,10 @@ public class Conquista {
 
     @Override
     public String toString() {
-        return "Conquista{" + "sucesso=" + sucesso + ", locaisAConquistar=" + locaisAConquistar + ", forca=" + forca + ", aliado=" + aliado + '}';
+        if (aliado != null) {
+            return sucesso + " " + locaisAConquistar + " " + forca + " " + aliado;
+        }
+        return sucesso + " " + locaisAConquistar + " " + forca;
     }
 
-    
-
-    
-    
-    
-            
 }
