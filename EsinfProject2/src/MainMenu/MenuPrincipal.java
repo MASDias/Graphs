@@ -8,7 +8,6 @@ import graph.AdjacencyMatrixGraph;
 import graph.AlgoritmosJogo;
 import graphbase.Graph;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class MenuPrincipal {
 
@@ -91,7 +90,7 @@ public class MenuPrincipal {
     }
 
     public Conquista locaisPersonagemPodeConsquistar(Personagem p, Local l, Local l2) {
-        if (!gameMap.checkVertex(l) || !graphAliancas.validVertex(p)) {
+        if (!gameMap.checkVertex(l) || !graphAliancas.validVertex(p) || p != l.getDono() && p != l2.getDono()) {
             return null;
         }
         return alianca.conquistarLocais(p, l, l2, gameMap);
@@ -144,7 +143,9 @@ public class MenuPrincipal {
         double forcaAlianca = (p.getForca() + aliado.getForca()) * graphAliancas.getEdge(p, aliado).getWeight();
         double forcaNecessaria = 0;
         boolean sucesso = false;
-        if(locaisAConquistar.isEmpty()) return new Conquista(Boolean.FALSE, new LinkedList<Local>(), 0,aliado);
+        if (locaisAConquistar.isEmpty()) {
+            return new Conquista(Boolean.FALSE, new LinkedList<Local>(), 0, aliado);
+        }
         Local local2 = locaisAConquistar.getFirst();
         for (Local local : locaisAConquistar) {
             if (!local.equals(local2)) {
@@ -160,7 +161,6 @@ public class MenuPrincipal {
         if (forcaAlianca > forcaNecessaria) {
             sucesso = true;
         }
-
         return new Conquista(sucesso, locaisAConquistar, forcaNecessaria, aliado);
     }
 

@@ -16,7 +16,7 @@ public class Mapa {
         LinkedList<Local> path = new LinkedList<>();
         shortestPath(map, l1, l2, path);
         return path;
-    }
+    } 
     
 
 }

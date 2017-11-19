@@ -119,7 +119,6 @@ public class Aliancas {
     }
 
     public AliancaMaisForte aliancaMaisForte() {
-        Map<LinkedList<Personagem>, Double> mapaPersonagensForca = new HashMap<>();
         LinkedList<Personagem> personagens = new LinkedList<>();
         double forca = 0;
         double maisForte = 0;

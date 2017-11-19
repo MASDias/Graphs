@@ -15,10 +15,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Miguel Santos <1161386@isep.ipp.pt>
- */
 public class MapaTest {
     
     private MenuPrincipal menuPrincipal = new MenuPrincipal();
